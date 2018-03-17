@@ -35,7 +35,8 @@ app.post('/chatRoom', (req, res) => {
 })
 
 app.post('/analyzeChat', (req, res) => {
-    
+    var message = JSON.parse(JSON.stringify(req.body)).message;
+    console.log(message);
 })
 
 app.get('*', (req,res) =>{

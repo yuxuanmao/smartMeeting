@@ -24,8 +24,18 @@ app.controller('chatController', function($scope, $http, userInfo){
     $scope.pastChats = ["Good Morning", "How are you"]
 
     $scope.sendMessage = function(){
-        $scope.pastChats.push($scope.user + ": " + $scope.message);
-        $scope.message = '';
+        $http({
+            method: 'POST',
+            url: '/analyzeChat',
+            data: {'message': $scope.message}
+            }).then(function(response) {
+                $scope.pastChats.push($scope.user + ": " + $scope.message);
+                $scope.message = '';
+            }, function (err) {
+                console.log(err);
+            });
     }
+
+    
    
 })
