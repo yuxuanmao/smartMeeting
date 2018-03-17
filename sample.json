@@ -1,0 +1,4 @@
+{
+        "username":"John",
+        "rooms": ["roomA", "roomB", "roomC", "roomD"]
+}

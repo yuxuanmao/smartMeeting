@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Smart Meeting</title>
+        <link class="originalCSS" rel="stylesheet" type="text/css" href="./css/index.css">
+        <!-- <script src="http://code.jquery.com/jquery-latest.js"></script> -->
+
+        <link class="jsbin" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+        <script
+          src="https://code.jquery.com/jquery-3.2.1.min.js"
+          integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+          crossorigin="anonymous"></script>
+        <script
+          src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+          integrity="sha384-b/U6ypiBEHpOf/4홼얦빷鼔鋸拂釼Ŵ卓웗▪ꞧ℧㩊棃䔶棸"
+          crossorigin="anonymous"></script>
+        <script
+          src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
+          integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+          crossorigin="anonymous"></script>
+          
+        <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script class="originalPageJS" src="./js/index.js"></script>
+        <script src="./js/home.js"></script>
+        
+
+		<link id="lucyCSS" rel="stylesheet" href="./css/home.css">
+		<link
+		  id="lucyBootstrap"
+		  rel="stylesheet"
+		  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+		  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+
+    </head>
+    <body ng-app = "myApp">
+		<div id="home" class="homepage">
+			<div style="justify-content: center; display: block;">
+				<img id="lucyImg" src="./resources/logo.png" alt="logo" style="width:100%; height:100%;">
+				<div class="buttons" style="display:flex; justify-content:center;">
+					<button id="signinbt">Sign In</button>
+					<button id="signupbt">Sign Up</button>
+				</div>
+			</div>
+		</div>
+
+		<div id="signin" class="signinpage" ng-controller="formCtrl">
+			<img id="lucyImg" src="./resources/logosmall.png" alt="logosmall">
+			<div class="signinblock">
+				<div align="right" style="padding: 5px;">
+					<button id="signupbt2">Sign Up</button>
+				</div>
+				<div class="signinform" align="center">
+					<h2>Sign In<h3>
+					<form>
+						<input type="text" name="email" placeholder="Email" ng-model ="user.email"><br>
+						<input type="text" name="password" placeholder="Password"ng-model = "user.password"><br>
+                        <button id="signininput" class="btn btn-dark">SIGN IN</button>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div id="signup" class="signuppage" ng-controller="formCtrl">
+			<img id="lucyImg" src="./resources/logosmall.png" alt="logosmall">
+			<div class="signupblock">
+				<div align="right" style="padding: 5px;">
+					<button id="signinbt2">Sign In</button>
+				</div>
+				<div class="signupform" align="center" style="padding-left: 60px;
+				padding-right: 60px;">
+					<h2>Sign Up</h2>
+					<form id="singupForm" align ="left" style="overflow-y: scroll; height: 600px;">
+						Email:
+						<input type="text" name="email" id = "email" ng-model = "user.email" placeholder=
+						"Enter your Email Here..."><br>
+						Username:
+						<input type="text" name="username" ng-model ="user.username" placeholder=
+						"Enter your Username Here..."><br>
+						Password:
+						<input type="text" name="password" ng-model = "user.password" placeholder=
+						"Enter your Password Here..."><br>
+						Employer:
+						<input type="text" name="employer" ng-model = "user.employer" placeholder=
+						"Enter your Employer Here..."><br>
+						Department:
+						<input type="text" name="department" ng-model = "user.department" placeholder=
+						"Enter your Department Here..."><br>
+						Team:
+						<input type="text" name="team" ng-model = "user.team" placeholder=
+						"Enter your Team Here..."><br>
+						<center><button id="signupinput" class="btn btn-dark">SIGN UP</button></center>
+					</form>
+				</div>
+			</div>
+		</div>
+
+        <div id="roomList" class="roomList">
+			<img id="lucyImg" src="./resources/chatlogo.png" alt="chatlogo">
+			<div style="display: flex;">
+                <div class="navbar" style="height: 605px; vertical-align: top;">
+                    <ul>
+                        <li id="Profile">Profile</li>
+                        <li id="Moments">Moments</li>
+                        <li id="Friends">Friends</li>
+                        <li id="Chats">Chats</li>
+                    </ul>
+                </div>
+				<div class="roomblock" align="center" style="padding-left: 60px; padding-right: 60px; padding-top: 40px; min-height: 100%;">
+					<h3 >Select which room you'd like to join below!!!</h3>
+					<ul class="room" style="margin: 40px;">
+                        <button id="room1">
+						  <span ng-bind = "user.employer"></span></button><br>
+						<button id="room2">
+                          <span ng-bind = "user.department"></span></button><br>
+						<button id="room3">
+                          <span ng-bind = "user.team"></span></button><br>
+						<button id="room4">
+                          Front-end (Team)</button><br>
+						<button id="room5">LCAK (Project Group)</button>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div id="chatRoom" class="chatRoom" align="center">
+			<img id="lucyImg" src="./resources/chatlogo.png" alt="chatlogo">
+			<div class="chat" align="center" style="padding-left: 60px; display: block;
+			padding-right: 60px; padding-top: 40px; width: 80%; height:100%;">
+				<div class="chatHeader">
+					<button id="chatBack">Back</button>
+					<p id="roomName" style="align: center; width: 100%; margin-top:
+					10px; color: white;font-size: 20px; font-weight: bold;">Chat Room</p>
+				</div>
+				<div align="left" style="overflow-y: scroll; height: 400px;
+				margin-bottom: 50px;">
+				  <ul id="messages"></ul>
+				</div>
+				<div id="messageArea" style="display: inline-block; position: relative;">
+					<input id="m" type="text" class="form-control" placeholder="Message..." style="height:40px;">
+					<button id="sendMessage" class="btn btn-dark">Send</button>
+				</div>
+			</div>
+		</div>
+
+        <div class="flex-container">
+            <header>
+                <img src="./resources/chatlogo.png" alt="chatlogo" id="chatLogo"
+                    style="float:center;">
+
+                <span id="sideMenuOpen" style="font-size:30px;cursor:pointer;color:#ffffff;" onclick="openNav()">
+                    &#9776; open
+                </span>
+
+                <div id="mySidenav" class="sidenav">
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                    <div id="hoverThumbnail">
+                        <img id="thumbnail" src="./resources/if_Personal_98961.png" alt="your image"
+                            width=50 height=50 style="border-radius:50%; " object-fit: cover />
+                    </div>
+                    <br>
+                    <div id="loginBtn">Login</div>
+                    <div id="logoutBtn">Logout</div>
+
+                </div>
+            </header>
+            <!--<div class="contentBody" style="display: flex; flex-wrap: wrap;">-->
+
+            <!--</div>-->
+            <nav class="nav">
+                <ul>
+                    <li id="Profile">Profile</li>
+                    <li id="Moments">Moments</li>
+                    <li id="Friends">Friends</li>
+                    <li id="Chats">Chats</li>
+                    <li id="Emails">Emails</li>
+                </ul>
+            </nav>
+
+            <article class="article"><!-- "article" -->
+                <div class="profilePageBox">
+                    <form id="updateProfileForm">
+                        <div class ="container">
+                            <img id="blah" src="./resources/if_Personal_98961.png" alt="your image"
+                                width=200 height=200 style="border-radius:50%" object-fit: cover/>
+
+                            <div class="group">
+                                <label for="imgInp" class="custom-file-upload">
+                                        upload profile image
+                                </label>
+                                <input type="file" id="imgInp" onchange="readURL(this);">
+                                <br>
+                            </div>
+
+                            <div class="group">
+                                <input id="userName" type="text" name="uname" required>
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label class="fake">User Name</label>
+                            </div>
+
+                            <div class="group">
+                                <input id="userEmail" type="email" name="uemail" required>
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label class="fake">Email</label>
+                            </div>
+
+                            <div class="group">
+                                <input id="userEmployer" type="text" name="uemployer" required="false">
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label class="fake">Employer</label>
+                            </div>
+
+                            <div class="group">
+                                <input id="department" type="text" name="dept" required="false">
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label class="fake">Department</label>
+                            </div>
+
+                            <div class="group">
+                                <input id="team" type="text" name="team" required="false">
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label class="fake">Team</label>
+                            </div>
+
+                            <div class="group">
+                                <input id="password" type="password" name="psw" required>
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label class="fake">Password</label>
+                            </div>
+
+                            <button id="SaveProfilebtn" class="btn" type="submit"><span>Save</span></button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="MomentsPageBox">
+                    <ul id="postList">
+                        <!--Add posts at this section-->
+                    </ul>
+                    <div id="postNew">Post</div>
+                    <div id="loadMore">Load More</div>
+                    <div id="showLess">Show Less</div>
+                </div>
+
+                <div class="FriendsPageBox">
+                    <!--Add elements for Friends page through JS file-->
+                </div>
+
+                <div class="PostFormBox">
+                    <form>
+                        <div class="container">
+                            <div class="group">
+                                <input id="mails" type="email" name="mails" multiple required>
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label class="fake">Email Address(es)</label>
+                            </div>
+
+
+                            <div class="group">
+                                <textarea id="subject" name="subject" placeholder="Write something.." style="height:100px; width:100%; font-family:'Roboto', sans-serif;"></textarea>
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+
+                            </div>
+
+                            <button id="actualPostBtn" class="btn" type="submit"><span>post</span></button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="roomblock" align="center" style="padding-left: 60px; padding-right: 60px; padding-top: 40px; min-height: 100%;">
+					<h3 >Select which room you'd like to join below!!!</h3>
+					<ul class="room" style="margin: 40px;">
+                        <button id="room1">
+						  <span ng-bind = "user.employer"></span></button><br>
+						<button id="room2">
+                          <span ng-bind = "user.department"></span></button><br>
+						<button id="room3">
+                          <span ng-bind = "user.team"></span></button><br>
+						<button id="room4">
+                          Front-end (Team)</button><br>
+						<button id="room5">LCLK (Project Group)</button>
+					</ul>
+				</div>
+
+                <div class="profilebar" style="font-size:20px;">
+                    <div id="logo">
+                    </div>
+
+                    <h5 class="card-title">User Name: </h5>
+                    <p id = "userName" class="card-text"> <span ng-bind = "user.username"></span></p>
+
+                    <h5 class="card-title">Email: </h5>
+                    <p id = "email" class="card-text"> <span ng-bind = "user.email"></span></p>
+
+                    <h5 class="card-title">Employer: </h5>
+                    <p id = "employer" class="card-text"> <span ng-bind = "user.employer"></span></p>
+
+                    <h5 class="card-title">Department: </h5>
+                    <p id = "department" class="card-text"> <span ng-bind = "user.department"></span></p>
+
+                    <h5 class="card-title">Team: </h5>
+                    <p id = "team" class="card-text"> <span ng-bind = "user.team"></span></p>
+
+                    <h5 class="card-title">Group: </h5>
+                    <p id = "group" class="card-text">LCLK</p>
+
+                    <button id="updateProfileBtn" class="btn" type="submit"><span>Update Profile</span></button>
+                </div>
+
+
+                <!--Email Center-->
+                <div class="emailCenter" align="center">
+
+                    <div class="sendOptions" id="sendOptions" style="display:block">
+                        <h2 align="left" style="color:black;">What would you like to send?</h2>
+                        <button id="noticebutton" class="btn btn-primary btn-lg btn-block">Meeting Notification</button>
+                        <br>
+                        <button id="followupbutton" class="btn btn-primary btn-lg btn-block">Meeting Followup</button>
+                        <br>
+                        <button id="reportbutton" class="btn btn-primary btn-lg btn-block">Reports</button>
+                    </div>
+
+                    <div class="mailingSection" id="futureSection" style="display:none">
+                        <div id="upcomingMeetings">
+                            <h3 align="left">Coming up..</h3>
+                            <button id="backbutton" type="button" class="btn btn-primary btn-lg btn-blockSmall">Back</button>
+                            <br>
+                            <table>
+                                <tr>
+                                    <th>Date&Time</th>
+                                    <th>With</th>
+                                </tr>
+                                <tr>
+                                    <td>2017/05</td>
+                                    <td>Leon Mao</td>
+                                </tr>
+                                <tr>
+                                    <td>2017/05</td>
+                                    <td>ProfessorQ&A</td>
+                                </tr>
+                            </table>
+                        </div>
+
+
+                        <div id="notificationMail">
+                            <form action="javascript:alert('submitted');" name="receiver" id="receiver" method="post">
+                                To:
+                                <input name="pmSubject" id="pmSubject" type="text" maxlength="40" style="width:40%" placeholder="Email Address or Username" />
+                            </form>
+                            <textarea name="emailContent" id="emailContent" method="post" style="resize:none; width:40%" rows=20>Hi! this is a meeting reminder</textarea>
+                            <br>
+                           <button id="sendbutton" type="button" class="btn btn-primary btn-lg btn-blockSmall">Send</button>
+                        </div>
+                    </div>
+
+
+                    <div class="mailingSection" id="pastSection" style="display:none">
+                        <div id="pastMeetings">
+                            <h3>Past Meetings</h3>
+                            <button id="backbutton" type="button" class="btn btn-primary btn-lg btn-blockSmall">Back</button>
+                            <table>
+                                <tr>
+                                    <th>Date&Time</th>
+                                    <th>With</th>
+                                    <th>Report</th>
+                                </tr>
+                                <tr>
+                                    <td>2017/03</td>
+                                    <td>Maria Anders</td>
+                                    <td>report.txt</td>
+                                </tr>
+                                <tr>
+                                    <td>2017/05</td>
+                                    <td>Jane Doe</td>
+                                    <td>SalesProgress.txt</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div id="followupMail">
+                            <form action="javascript:alert('submitted');" name="receiver" id="receiver" method="post">
+                                To:
+                                <input name="pmSubject" id="pmSubject" type="text" maxlength="40" style="width:40%" placeholder="Email Address" />
+                            </form>
+                            <textarea name="emailContent" id="emailContent" method="post" style="resize:none; width:40%" rows=20>Hi! Thank you for joining me in the meeting</textarea>
+                            <br>
+                            <button id="sendbutton" type="button" class="btn btn-primary btn-lg btn-blockSmall">Send</button>
+                        </div>
+                    </div>
+                </div>
+
+            </article>
+            <footer><!--footer-->
+                Copyright &copy; lclk
+            </footer><!--footer-->
+        </div>
+    </body>
+</html>

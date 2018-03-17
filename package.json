@@ -1,0 +1,40 @@
+{
+  "name": "smartmeeting",
+  "version": "1.0.0",
+  "description": "Implement the following two functions:",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon -e .html,.ejs,.js",
+    "start1": "nodemon ./server.js --exec babel-node -e js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kerjohn Chen",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "browser-sync": "^2.23.6",
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "gulp": "^3.9.1",
+    "gulp-cli": "^2.0.1",
+    "gulp-livereload": "^3.8.1",
+    "gulp-nodemon": "^2.2.1",
+    "gulp-notify": "^3.2.0",
+    "nodemon": "^1.12.1",
+    "request": "^2.83.0",
+    "socket.io": "^2.0.3"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-stage-0": "^6.24.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/csc309-18s/assignment-1-lclk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/csc309-18s/assignment-1-lclk/issues"
+  },
+  "homepage": "https://github.com/csc309-18s/assignment-1-lclk#readme"
+}

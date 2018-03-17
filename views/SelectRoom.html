@@ -1,0 +1,9 @@
+<div class="rooms" align="center" style="padding-left: 60px; padding-right: 60px; padding-top: 40px; min-height: 100%;">
+    <h3 >Select which room you'd like to join below!!!</h3>
+    <ul class="room" style="margin: 40px;">
+        <div ng-repeat="item in rooms">
+            <p>{{ item }} </p>
+            <button ng-click="goToChatRoom(item)" >Go</button>
+        </div>
+    </ul>
+</div>
