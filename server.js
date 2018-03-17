@@ -59,7 +59,8 @@ app.post('/analyzeChat', (req, res) => {
             console.log('error:', error);
         else
         
-        data = JSON.stringify(response, null, 2);
+        //data = JSON.stringify(response, null, 2);
+        data = response;
         console.log(data);
         }
     );
