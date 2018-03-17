@@ -29,7 +29,8 @@ app.controller('chatController', function($scope, $http, userInfo){
             url: '/analyzeChat',
             data: {'message': $scope.message}
             }).then(function(response) {
-                $scope.pastChats.push($scope.user + ": " + $scope.message);
+                var msg = JSON.parse(JSON.stringify(response.data));
+                $scope.pastChats.push($scope.user + ": " + msg);
                 $scope.message = '';
             }, function (err) {
                 console.log(err);
