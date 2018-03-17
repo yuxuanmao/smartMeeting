@@ -34,6 +34,10 @@ app.post('/chatRoom', (req, res) => {
     //res.sendFile(__dirname + '/front-end/chatRoom.html');
 })
 
+app.post('/analyzeChat', (req, res) => {
+    
+})
+
 app.get('*', (req,res) =>{
     res.sendFile(__dirname + '/views/index.html');
 })

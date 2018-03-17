@@ -1,9 +1,5 @@
 const app = angular.module("myApp", ["ngRoute"]);
 
-
-var currentRoom = 'myRoom';
-var currentUser = 'myUser';
-
 app.config(function($routeProvider) {
     $routeProvider
     .when("/", {

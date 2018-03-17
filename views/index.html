@@ -1,16 +1,19 @@
 <!DOCTYPE html>
-<html ng-app="myApp">>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
-<script src="/socket.io/socket.io.js"></script>
+<html ng-app="myApp">
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
 
-<script src="./js/routes.js"></script>
-<script src="./js/service.js"></script>
-<script src="./js/controller.js"></script>
+        <script src="./js/routes.js"></script>
+        <script src="./js/service.js"></script>
+        <script src="./js/controller.js"></script>
+    </head>
+    <body>
+        
+        <a href="#!selectRoom">Go To Room List</a>
 
-<body>
+        <div ng-view></div>
 
-<div ng-view></div>
-
-</body>
+    </body>
 </html>
