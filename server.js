@@ -34,8 +34,38 @@ app.post('/chatRoom', (req, res) => {
     //res.sendFile(__dirname + '/front-end/chatRoom.html');
 })
 
+
+var ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
+var tone_analyzer = new ToneAnalyzerV3({
+   username: '82a1f1c1-5255-4642-a016-0d8d21294ac2',
+   password: 'BSi6j2ZaJp2a',
+   version_date: '2017-09-21'
+ });
+
 app.post('/analyzeChat', (req, res) => {
-    
+    var message = JSON.parse(JSON.stringify(req.body)).message;
+    //console.log(message);
+// This is tone analyzer provided methods
+
+    var jsontext = '{"text": "' + message +' "}';
+    var content = JSON.parse(jsontext);
+    var params = {
+        'tone_input': content,
+        'content_type': 'application/json'
+    };
+    var data='';
+    tone_analyzer.tone(params, function(error, response) {
+        if (error)
+            console.log('error:', error);
+        else
+        
+        data = JSON.stringify(response, null, 2);
+        console.log(data);
+        }
+    );
+
+    res.send(data);
+
 })
 
 app.get('*', (req,res) =>{
