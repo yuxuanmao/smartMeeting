@@ -3,7 +3,8 @@ const app = angular.module("myApp", ["ngRoute"]);
 app.config(function($routeProvider) {
     $routeProvider
     .when("/", {
-        templateUrl : "main.html"
+        templateUrl : "homepage.html",
+        controller : "homeController"
     })
     .when("/selectRoom", {
         templateUrl : "SelectRoom.html",
@@ -13,5 +14,5 @@ app.config(function($routeProvider) {
         templateUrl : "MyRoom.html",
         controller: "chatController"
     })
-    
+
 });
