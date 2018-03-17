@@ -25,10 +25,27 @@ app.get('/rooms', (req, res) =>{
     res.send(data);
 })
 
+app.post('/signIn', (req, res) => {
+
+    var email = JSON.parse(JSON.stringify(req.body)).user.email;
+    var password = JSON.parse(JSON.stringify(req.body)).user.password;
+})
+
+app.post('signUp', (req, res) => {
+    var email = JSON.parse(JSON.stringify(req.body)).user.email;
+    var username = JSON.parse(JSON.stringify(req.body)).user.username;
+    var password = JSON.parse(JSON.stringify(req.body)).user.password;
+    var employer = JSON.parse(JSON.stringify(req.body)).user.employer;
+    var department = JSON.parse(JSON.stringify(req.body)).user.department;
+    var team = JSON.parse(JSON.stringify(req.body)).user.team;
+
+
+})
+
 
 
 app.post('/chatRoom', (req, res) => {
-    
+
     var roomId = JSON.parse(JSON.stringify(req.body)).roomId;
     console.log(roomId);
     //res.sendFile(__dirname + '/front-end/chatRoom.html');
@@ -58,7 +75,7 @@ app.post('/analyzeChat', (req, res) => {
         if (error)
             console.log('error:', error);
         else
-        
+
         //data = JSON.stringify(response, null, 2);
         data = response;
         console.log(data);
@@ -77,7 +94,7 @@ app.get('*', (req,res) =>{
 const tech = io.of('/tech');
 
 tech.on('connection', (socket) => {
-    
+
     socket.on('join', (data) => {
         socket.join(data.room);
         console.log(data.user + ' has joined ' + data.room);
@@ -95,5 +112,3 @@ tech.on('connection', (socket) => {
         //tech.emit('message', 'user disconnected');
     })
 })
-
-
