@@ -53,9 +53,28 @@ app.controller('chatController', function($scope, $http, userInfo){
     $scope.room = userInfo.getRoom();
     $scope.user = userInfo.getUser();
 
-    $scope.pastChats = ["Good Morning", "How are you"]
+    const socket = io('/tech');
+   
+    socket.on('connect', () => {
+        // emiting to everybody
+        socket.emit('join', { user: $scope.user, room: $scope.room});
+    })
+
+    $scope.send = function(){
+        
+        socket.emit('chat message', { user: $scope.user, msg: $scope.message, room: $scope.room});
+        $scope.message="";
+    }
+
+    socket.on('chat message', function(msg){
+            console.log(msg);
+            //var li= document.createElement("li");
+            //li.appendChild(document.createTextNode(msg.msg));
+            //document.getElementById("messages").appendChild(li);
+    });
 
     $scope.sendMessage = function(){
+        
         $http({
             method: 'POST',
             url: '/analyzeChat',

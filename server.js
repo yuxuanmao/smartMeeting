@@ -90,7 +90,6 @@ app.get('*', (req,res) =>{
     res.sendFile(__dirname + '/views/index.html');
 })
 
-// tech namespace
 const tech = io.of('/tech');
 
 tech.on('connection', (socket) => {
@@ -98,17 +97,14 @@ tech.on('connection', (socket) => {
     socket.on('join', (data) => {
         socket.join(data.room);
         console.log(data.user + ' has joined ' + data.room);
-        tech.in(data.room).emit('autoMessage', { user: data.user, msg: " has entered the room"});
     })
 
-    socket.on('message', (data) => {
+    socket.on('chat message', (data) => {
         console.log(data.user + ':' + data.msg);
-        tech.in(data.room).emit('message',  { user: data.user, msg: data.msg});
+        tech.in(data.room).emit('chat message',  { user: data.user, msg: data.msg});
     });
 
     socket.on('disconnect', () => {
         console.log('user disconnected');
-
-        //tech.emit('message', 'user disconnected');
     })
 })
