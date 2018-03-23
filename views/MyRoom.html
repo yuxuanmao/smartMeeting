@@ -9,8 +9,9 @@
         <div align="left" style="overflow-y: scroll; height: 400px;
         margin-bottom: 50px;">
           <ul id="messages" >
-              <li ng-repeat = " x in pastChats">
-                {{ x }}
+              <li ng-repeat = 'x in pastChats'>
+                <p>{{ x.user }} : {{ x.msg}}</p>
+                <p>{{ x.document_tone.tones }} </p>
               </li>
           </ul>
         </div>
