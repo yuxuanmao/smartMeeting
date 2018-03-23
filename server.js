@@ -101,7 +101,30 @@ tech.on('connection', (socket) => {
 
     socket.on('chat message', (data) => {
         console.log(data.user + ':' + data.msg);
-        tech.in(data.room).emit('chat message',  { user: data.user, msg: data.msg});
+        var message = data.msg;
+        
+
+        var jsontext = '{"text": "' + message +' "}';
+        var content = JSON.parse(jsontext);
+        var params = {
+            'tone_input': content,
+            'content_type': 'application/json'
+        };
+        var res ='';
+        
+        tone_analyzer.tone(params, function(error, response) {
+            if (error)
+                console.log('error:', error);
+            else
+                res = JSON.parse(JSON.stringify(response, null, 2));
+
+            var userInfo = { user: data.user, msg: data.msg };
+            var all = Object.assign({}, res, userInfo);
+            console.log(all);
+            tech.in(data.room).emit('chat message', all );
+        }
+        );
+       
     });
 
     socket.on('disconnect', () => {

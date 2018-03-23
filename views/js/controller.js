@@ -48,13 +48,11 @@ app.controller('roomController', function($scope, $http, $location, userInfo) {
     });
 });
 
-app.controller('chatController', function($scope, $http, userInfo){
+app.controller('chatController', function($scope, $http, socket, userInfo){
 
     $scope.room = userInfo.getRoom();
     $scope.user = userInfo.getUser();
-
-    const socket = io('/tech');
-   
+    $scope.pastChats = []
     socket.on('connect', () => {
         // emiting to everybody
         socket.emit('join', { user: $scope.user, room: $scope.room});
@@ -66,28 +64,13 @@ app.controller('chatController', function($scope, $http, userInfo){
         $scope.message="";
     }
 
-    socket.on('chat message', function(msg){
-            console.log(msg);
-            //var li= document.createElement("li");
-            //li.appendChild(document.createTextNode(msg.msg));
-            //document.getElementById("messages").appendChild(li);
+    socket.on('chat message', function(data){
+        /**
+         * document_tone.tones
+         * {score: 0.6165, tone_id: "sadness", tone_name: "Sadness"}
+         * {score: 0.6165, tone_id: "sadness", tone_name: "Sadness"}
+         * {score: 0.6165, tone_id: "sadness", tone_name: "Sadness"}
+         */
+        $scope.pastChats.push(data);
     });
-
-    $scope.sendMessage = function(){
-        
-        $http({
-            method: 'POST',
-            url: '/analyzeChat',
-            data: {'message': $scope.message}
-            }).then(function(response) {
-                var msg = JSON.parse(JSON.stringify(response.data));
-                $scope.pastChats.push($scope.user + ": " + msg);
-                $scope.message = '';
-            }, function (err) {
-                console.log(err);
-            });
-    }
-
-
-
 })

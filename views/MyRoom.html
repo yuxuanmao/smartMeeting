@@ -4,13 +4,14 @@
         <div class="chatHeader">
             <button id="chatBack">Back</button>
             <p id="roomName" style="align: center; width: 100%; margin-top:
-            10px; color: white;font-size: 20px; font-weight: bold;">Chat Room:</p>
+            10px; color: white;font-size: 20px; font-weight: bold;">Chat Room: {{ room }}</p>
         </div>
         <div align="left" style="overflow-y: scroll; height: 400px;
         margin-bottom: 50px;">
-          <ul id="messages">
-            
-
+          <ul id="messages" >
+              <li ng-repeat = " x in pastChats">
+                {{ x }}
+              </li>
           </ul>
         </div>
         <div id="messageArea" style="display: inline-block; position: relative;">
