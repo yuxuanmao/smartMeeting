@@ -6,6 +6,12 @@ const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const port = 3000;
 
+var mongoose = require('mongoose')
+mongoose.connect('mongodb://18.188.83.191:27017/local', { useMongoClient: true})
+.then(()=> { console.log(`Succesfully Connected to the Mongodb Database  at URL : mongodb://18.188.83.191:27017/local`)})
+.catch(()=> { console.log(`Error Connecting to the Mongodb Database at URL : mongodb://18.188.83.191:27017/local`)})
+
+
 server.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
