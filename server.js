@@ -6,15 +6,20 @@ const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const port = 3000;
 
-var mongoose = require('mongoose')
-mongoose.connect('mongodb://18.188.83.191:27017/local', { useMongoClient: true})
-.then(()=> { console.log(`Succesfully Connected to the Mongodb Database  at URL : mongodb://18.188.83.191:27017/local`)})
-.catch(()=> { console.log(`Error Connecting to the Mongodb Database at URL : mongodb://18.188.83.191:27017/local`)})
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://18.188.83.191:27017/local";
+
+var db;
+
+MongoClient.connect(url, (err, client) => {
+    if (err) return console.log(err)
+    db = client.db('mydb') // whatever your database name is
+    server.listen(port, () => {
+        console.log(`Server is running on port ${port}`);
+    });
+  })
 
 
-server.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-});
 
 app.set('view engine', 'ejs');
 
@@ -24,11 +29,15 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(__dirname+ '/views'));
 
 
+app.get('/rooms:name', (req, res) =>{
+    console.log(req.params.name);
+    var query = { name: req.params.name };
 
+    db.collection('User_Rooms').find(query).toArray(function(err, results) {
+        if (err) res.send(err);
 
-app.get('/rooms', (req, res) =>{
-    data = require('./sample.json'); //get rooms from database
-    res.send(data);
+        res.send(results[0]);
+    })
 })
 
 app.post('/signIn', (req, res) => {
@@ -44,8 +53,6 @@ app.post('signUp', (req, res) => {
     var employer = JSON.parse(JSON.stringify(req.body)).user.employer;
     var department = JSON.parse(JSON.stringify(req.body)).user.department;
     var team = JSON.parse(JSON.stringify(req.body)).user.team;
-
-
 })
 
 
@@ -54,7 +61,6 @@ app.post('/chatRoom', (req, res) => {
 
     var roomId = JSON.parse(JSON.stringify(req.body)).roomId;
     console.log(roomId);
-    //res.sendFile(__dirname + '/front-end/chatRoom.html');
 })
 
 
@@ -117,6 +123,8 @@ tech.on('connection', (socket) => {
             'content_type': 'application/json'
         };
         var res ='';
+
+        
         
         tone_analyzer.tone(params, function(error, response) {
             if (error)
@@ -124,9 +132,15 @@ tech.on('connection', (socket) => {
             else
                 res = JSON.parse(JSON.stringify(response, null, 2));
 
-            var userInfo = { user: data.user, msg: data.msg };
+            var userInfo = { room: data.room, user: data.user, msg: data.msg };
             var all = Object.assign({}, res, userInfo);
             console.log(all);
+
+            db.collection("Room_chatHistory").insertOne(all, function(err, res) {
+                if (err) throw err;
+                console.log("1 document inserted");
+                
+            });
             tech.in(data.room).emit('chat message', all );
         }
         );
