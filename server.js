@@ -13,13 +13,17 @@ var db;
 
 MongoClient.connect(url, (err, client) => {
     if (err) return console.log(err)
-    db = client.db('mydb') // whatever your database name is
+    db = client.db('mydb'); // whatever your database name is
     server.listen(port, () => {
         console.log(`Server is running on port ${port}`);
     });
-  })
+});
 
-
+db.createCollection("userLogin", function(err, res) {
+    iff (err) throw err;
+    console.log("Collection created!");
+    db.close();
+});
 
 app.set('view engine', 'ejs');
 
@@ -40,20 +44,32 @@ app.get('/rooms:name', (req, res) =>{
     })
 })
 
-app.post('/signIn', (req, res) => {
+app.post('/signin', (req, res) => {
 
-    var email = JSON.parse(JSON.stringify(req.body)).user.email;
-    var password = JSON.parse(JSON.stringify(req.body)).user.password;
+    var user_email = JSON.parse(JSON.stringify(req.body)).user.email;
+    var user_password = JSON.parse(JSON.stringify(req.body)).user.password;
+
+    console.log(user_email);
+    console.log(user_password);
 })
 
-app.post('signUp', (req, res) => {
-    var email = JSON.parse(JSON.stringify(req.body)).user.email;
-    var username = JSON.parse(JSON.stringify(req.body)).user.username;
-    var password = JSON.parse(JSON.stringify(req.body)).user.password;
-    var employer = JSON.parse(JSON.stringify(req.body)).user.employer;
-    var department = JSON.parse(JSON.stringify(req.body)).user.department;
-    var team = JSON.parse(JSON.stringify(req.body)).user.team;
-})
+app.post('/signup', (req, res) => {
+    var user_email = JSON.parse(JSON.stringify(req.body)).user.email;
+    var user_username = JSON.parse(JSON.stringify(req.body)).user.username;
+    var user_password = JSON.parse(JSON.stringify(req.body)).user.password;
+    var user_employer = JSON.parse(JSON.stringify(req.body)).user.employer;
+    var user_department = JSON.parse(JSON.stringify(req.body)).user.department;
+    var user_team = JSON.parse(JSON.stringify(req.body)).user.team;
+
+    db.collection("userLogin").insertOne({
+        email: user_email,
+        username: user_username,
+        password: user_password,
+        employer: user_employer,
+        department: user_department,
+        team: user_team
+    });
+});
 
 
 
@@ -61,7 +77,7 @@ app.post('/chatRoom', (req, res) => {
 
     var roomId = JSON.parse(JSON.stringify(req.body)).roomId;
     console.log(roomId);
-})
+});
 
 
 var ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
@@ -114,7 +130,7 @@ tech.on('connection', (socket) => {
     socket.on('chat message', (data) => {
         console.log(data.user + ':' + data.msg);
         var message = data.msg;
-        
+
 
         var jsontext = '{"text": "' + message +' "}';
         var content = JSON.parse(jsontext);
@@ -124,8 +140,8 @@ tech.on('connection', (socket) => {
         };
         var res ='';
 
-        
-        
+
+
         tone_analyzer.tone(params, function(error, response) {
             if (error)
                 console.log('error:', error);
@@ -139,12 +155,12 @@ tech.on('connection', (socket) => {
             db.collection("Room_chatHistory").insertOne(all, function(err, res) {
                 if (err) throw err;
                 console.log("1 document inserted");
-                
+
             });
             tech.in(data.room).emit('chat message', all );
         }
         );
-       
+
     });
 
     socket.on('disconnect', () => {

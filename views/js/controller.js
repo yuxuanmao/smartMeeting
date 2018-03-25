@@ -1,33 +1,74 @@
 app.controller('homeController', function($scope, $location) {
 
     $scope.homeshow = true;
-    $scope.signinshow = false;
-    $scope.signupshow = false;
 
     $scope.signinToggle = function() {
         $scope.homeshow  = $scope.homeshow === true ? false : true;
-        $scope.signinshow = $scope.signinshow === false ? true : false;
+        $location.url('/signin')
     };
     $scope.signupToggle = function() {
         $scope.homeshow  = $scope.homeshow === true ? false : true;
-        $scope.signupshow = $scope.signinshow === false ? true : false;
+        $location.url('/signup')
     };
 
-    $scope.signinToggle2 = function() {
-        $scope.signupshow  = $scope.signupshow === true ? false : true;
-        $scope.signinshow = $scope.signinshow === false ? true : false;
-    };
+});
+
+app.controller('signinController', function($scope, $http, $location) {
+
+    $scope.signinshow = true;
+
     $scope.signupToggle2 = function() {
         $scope.signinshow  = $scope.signinshow === true ? false : true;
-        $scope.signupshow = $scope.signupshow === false ? true : false;
+        $location.url('/signup')
     };
 
     $scope.roomToggle = function() {
         $scope.signinshow  = $scope.signinshow === true ? false : true;
-        $scope.signupshow  = $scope.signupshow === true ? false : true;
-        $location.url('/selectRoom')
-    }
+        $location.url('/selectRoom');
 
+        $http({
+            method: "POST",
+            url: "/signin"
+            json: {
+                'email': $scope.user.email,
+                'password': $scope.user.password,
+            }
+        },
+        function(err) {
+            console.log(err);
+        });
+    }
+});
+
+app.controller('signupController', function($scope, $http, $location) {
+
+    $scope.signupshow = true;
+
+    $scope.signinToggle2 = function() {
+        $scope.signupshow  = $scope.signupshow === true ? false : true;
+        $location.url('/signin')
+    };
+
+    $scope.roomToggle = function() {
+        $scope.signupshow  = $scope.signupshow === true ? false : true;
+        $location.url('/selectRoom');
+
+        $http({
+            method: "POST",
+            url: "/signup"
+            json: {
+                'email': $scope.user.email,
+                'username': $scope.user.username,
+                'password': $scope.user.password,
+                'employer': $scope.user.employer,
+                'department': $scope.user.department,
+                'team': $scope.user.team,
+            }
+        },
+        function(err) {
+            console.log(err);
+        });
+    };
 });
 
 app.controller('roomController', function($scope, $http, $location, userInfo) {
@@ -59,7 +100,7 @@ app.controller('chatController', function($scope, $http, socket, userInfo){
     })
 
     $scope.send = function(){
-        
+
         socket.emit('chat message', { user: $scope.user, msg: $scope.message, room: $scope.room});
         $scope.message="";
     }
