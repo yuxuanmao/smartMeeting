@@ -28,7 +28,7 @@ app.controller('signinController', function($scope, $http, $location) {
 
         $http({
             method: "POST",
-            url: "/signin"
+            url: "/signin",
             json: {
                 'email': $scope.user.email,
                 'password': $scope.user.password,
@@ -55,7 +55,7 @@ app.controller('signupController', function($scope, $http, $location) {
 
         $http({
             method: "POST",
-            url: "/signup"
+            url: "/signup",
             json: {
                 'email': $scope.user.email,
                 'username': $scope.user.username,

@@ -20,7 +20,7 @@ MongoClient.connect(url, (err, client) => {
 });
 
 db.createCollection("userLogin", function(err, res) {
-    iff (err) throw err;
+    if (err) throw err;
     console.log("Collection created!");
     db.close();
 });
@@ -69,14 +69,6 @@ app.post('/signup', (req, res) => {
         department: user_department,
         team: user_team
     });
-});
-
-
-    db.collection('User_Rooms').find(query).toArray(function(err, results) {
-        if (err) res.send(err);
-
-        res.send(results[0]);
-    })
 })
 
 app.get('/pastChats:room', (req, res) => {
