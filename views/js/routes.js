@@ -10,11 +10,11 @@ app.config(function($routeProvider) {
         templateUrl : "SelectRoom.html",
         controller : "roomController"
     })
-    .when("/signin", {
+    .when("/signinpage", {
         templateUrl : "signin.html",
         controller : "signinController"
     })
-    .when("/signup", {
+    .when("/signuppage", {
         templateUrl : "signup.html",
         controller : "signupController"
     })

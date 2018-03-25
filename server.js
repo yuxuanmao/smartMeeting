@@ -42,29 +42,54 @@ app.get('/rooms:name', (req, res) =>{
 
 app.post('/signin', (req, res) => {
 
-    var user_email = JSON.parse(JSON.stringify(req.body)).user.email;
-    var user_password = JSON.parse(JSON.stringify(req.body)).user.password;
+    var user_email = JSON.parse(JSON.stringify(req.body)).email;
+    var user_password = JSON.parse(JSON.stringify(req.body)).password;
 
     console.log(user_email);
     console.log(user_password);
+
+    de.collection("userLogin").findOne({email: user_email, password: user_password}, function(err, result) {
+
+        if (result == null) {
+            res.send({result: "fail"});
+        } else {
+            res.send({result: "pass"});
+        }
+    })
 })
 
 app.post('/signup', (req, res) => {
-    var user_email = JSON.parse(JSON.stringify(req.body)).user.email;
-    var user_username = JSON.parse(JSON.stringify(req.body)).user.username;
-    var user_password = JSON.parse(JSON.stringify(req.body)).user.password;
-    var user_employer = JSON.parse(JSON.stringify(req.body)).user.employer;
-    var user_department = JSON.parse(JSON.stringify(req.body)).user.department;
-    var user_team = JSON.parse(JSON.stringify(req.body)).user.team;
+    var user_email = JSON.parse(JSON.stringify(req.body)).email;
+    var user_username = JSON.parse(JSON.stringify(req.body)).username;
+    var user_password = JSON.parse(JSON.stringify(req.body)).password;
+    var user_employer = JSON.parse(JSON.stringify(req.body)).employer;
+    var user_department = JSON.parse(JSON.stringify(req.body)).department;
+    var user_team = JSON.parse(JSON.stringify(req.body)).team;
 
-    db.collection("userLogin").insertOne({
-        email: user_email,
-        username: user_username,
-        password: user_password,
-        employer: user_employer,
-        department: user_department,
-        team: user_team
-    });
+    var email_query = {email: user_email};
+    var username_query = {username: user_username};
+
+    db.collection("userLogin").findOne({username: user_username}, function(err, result) {
+
+        if (result == null) {
+            db.collection("userLogin").insertOne({
+                email: user_email,
+                username: user_username,
+                password: user_password,
+                employer: user_employer,
+                department: user_department,
+                team: user_team
+            });
+            db.collection("userLogin").find({}).toArray(function(err, result) {
+                if (err) throw err;
+                console.log(result);
+            });
+            res.send({result: "pass"});
+        } else {
+            // res.send({result: "fail"});
+
+        }
+    })
 })
 
 app.get('/pastChats:room', (req, res) => {
