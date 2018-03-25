@@ -29,17 +29,6 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(__dirname+ '/views'));
 
 
-app.get('/rooms:name', (req, res) =>{
-    console.log(req.params.name);
-    var query = { name: req.params.name };
-
-    db.collection('User_Rooms').find(query).toArray(function(err, results) {
-        if (err) res.send(err);
-
-        res.send(results[0]);
-    })
-})
-
 app.post('/signIn', (req, res) => {
 
     var email = JSON.parse(JSON.stringify(req.body)).user.email;
@@ -55,12 +44,26 @@ app.post('signUp', (req, res) => {
     var team = JSON.parse(JSON.stringify(req.body)).user.team;
 })
 
+app.get('/rooms:name', (req, res) =>{
+    console.log(req.params.name);
+    var query = { name: req.params.name };
 
+    db.collection('User_Rooms').find(query).toArray(function(err, results) {
+        if (err) res.send(err);
 
-app.post('/chatRoom', (req, res) => {
+        res.send(results[0]);
+    })
+})
 
-    var roomId = JSON.parse(JSON.stringify(req.body)).roomId;
-    console.log(roomId);
+app.get('/pastChats:room', (req, res) => {
+    var query = { room: req.params.room };
+    console.log(query);
+    
+    db.collection('Room_chatHistory').find(query).toArray(function(err, results) {
+        if (err) res.send(err);
+        console.log(results);
+        res.send(results);
+    })
 })
 
 
