@@ -19,17 +19,13 @@ MongoClient.connect(url, (err, client) => {
     });
 });
 
-db.createCollection("userLogin", function(err, res) {
-    if (err) throw err;
-    console.log("Collection created!");
-    db.close();
-});
 
 app.set('view engine', 'ejs');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
 
+app.use(express.static(__dirname+ '/views'));
 app.use(express.static(__dirname+ '/views'));
 
 
@@ -39,7 +35,7 @@ app.get('/rooms:name', (req, res) =>{
 
     db.collection('User_Rooms').find(query).toArray(function(err, results) {
         if (err) res.send(err);
-
+        console.log(results);
         res.send(results[0]);
     })
 })
