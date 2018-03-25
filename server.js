@@ -72,12 +72,23 @@ app.post('/signup', (req, res) => {
 });
 
 
+    db.collection('User_Rooms').find(query).toArray(function(err, results) {
+        if (err) res.send(err);
 
-app.post('/chatRoom', (req, res) => {
+        res.send(results[0]);
+    })
+})
 
-    var roomId = JSON.parse(JSON.stringify(req.body)).roomId;
-    console.log(roomId);
-});
+app.get('/pastChats:room', (req, res) => {
+    var query = { room: req.params.room };
+    console.log(query);
+
+    db.collection('Room_chatHistory').find(query).toArray(function(err, results) {
+        if (err) res.send(err);
+        console.log(results);
+        res.send(results);
+    })
+})
 
 
 var ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');

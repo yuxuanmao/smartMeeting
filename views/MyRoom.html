@@ -2,7 +2,7 @@
     <div class="chat" align="center" style="padding-left: 60px; display: block;
     padding-right: 60px; padding-top: 40px; width: 80%; height:100%;">
         <div class="chatHeader">
-            <button id="chatBack">Back</button>
+            <button id="chatBack" ng-click ="backToRoomList()">Back</button>
             <p id="roomName" style="align: center; width: 100%; margin-top:
             10px; color: white;font-size: 20px; font-weight: bold;">Chat Room: {{ room }}</p>
         </div>
@@ -11,7 +11,7 @@
           <ul id="messages" >
               <li ng-repeat = 'x in pastChats'>
                 <p>{{ x.user }} : {{ x.msg}}</p>
-                <p>{{ x.document_tone.tones }} </p>
+                <p ng-if = "x.document_tone.tones.length != 0">{{ x.document_tone.tones }} </p>
               </li>
           </ul>
         </div>

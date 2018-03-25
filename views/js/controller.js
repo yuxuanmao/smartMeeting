@@ -82,18 +82,30 @@ app.controller('roomController', function($scope, $http, $location, userInfo) {
         $scope.goToChatRoom = function(id){
             userInfo.setRoom(id);
             userInfo.setUser($scope.user);
-            $location.url('/myRoom');
+            $location.path('/myRoom');
         }
     }, function (err) {
         console.log(err);
     });
 });
 
-app.controller('chatController', function($scope, $http, socket, userInfo){
+app.controller('chatController', function($scope, $http, $location, socket, userInfo){
 
     $scope.room = userInfo.getRoom();
     $scope.user = userInfo.getUser();
-    $scope.pastChats = []
+    $scope.pastChats;
+
+    $http({
+        method : "GET",
+        url : "/pastChats" + $scope.room
+    }).then(function(response) {
+        console.log(JSON.parse(JSON.stringify(response.data)));
+        $scope.pastChats = JSON.parse(JSON.stringify(response.data));
+        
+    }, function (err) {
+        console.log(err);
+    });
+
     socket.on('connect', () => {
         // emiting to everybody
         socket.emit('join', { user: $scope.user, room: $scope.room});
@@ -103,6 +115,10 @@ app.controller('chatController', function($scope, $http, socket, userInfo){
 
         socket.emit('chat message', { user: $scope.user, msg: $scope.message, room: $scope.room});
         $scope.message="";
+    }
+
+    $scope.backToRoomList = function(){
+        $location.path('/selectRoom');
     }
 
     socket.on('chat message', function(data){
