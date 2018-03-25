@@ -87,6 +87,24 @@ app.controller('roomController', function($scope, $http, $location, userInfo) {
     }, function (err) {
         console.log(err);
     });
+
+
+    $scope.addRoom = function(room){
+        $scope.rooms.push(room);
+        $scope.newRoom = "";
+
+        $http({
+            method: "POST",
+            url: "/addNewRoom",
+            json: {
+                'room': room
+            }
+        }).then(function(response) {
+            
+        }, function (err) {
+            console.log(err);
+        });
+    }
 });
 
 app.controller('chatController', function($scope, $http, $location, socket, userInfo){
