@@ -4,11 +4,11 @@ app.controller('homeController', function($scope, $location) {
 
     $scope.signinToggle = function() {
         $scope.homeshow  = $scope.homeshow === true ? false : true;
-        $location.url('/signin')
+        $location.path('/signinpage')
     };
     $scope.signupToggle = function() {
         $scope.homeshow  = $scope.homeshow === true ? false : true;
-        $location.url('/signup')
+        $location.path('/signuppage')
     };
 
 });

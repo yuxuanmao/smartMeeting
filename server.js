@@ -65,13 +65,13 @@ app.post('/signup', (req, res) => {
     var user_employer = JSON.parse(JSON.stringify(req.body)).employer;
     var user_department = JSON.parse(JSON.stringify(req.body)).department;
     var user_team = JSON.parse(JSON.stringify(req.body)).team;
-
+    
     var email_query = {email: user_email};
     var username_query = {username: user_username};
 
     db.collection("userLogin").findOne({username: user_username}, function(err, result) {
 
-        if (result == null) {
+        if (!err) {
             db.collection("userLogin").insertOne({
                 email: user_email,
                 username: user_username,
@@ -84,10 +84,10 @@ app.post('/signup', (req, res) => {
                 if (err) throw err;
                 console.log(result);
             });
-            res.send({result: "pass"});
-        } else {
-            // res.send({result: "fail"});
+            res.json({result: "pass"});
 
+        } else {
+            res.json({result: "fail"});
         }
     })
 })
