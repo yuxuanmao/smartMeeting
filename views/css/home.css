@@ -206,3 +206,15 @@ h2 {
     height: 100%;
     width: 60%;
 }
+
+#logoutbt {
+    width: 50%;
+    height: 40px;
+    background-color: black;
+    border-radius: 3px;
+    font-size: 15px;
+    color: white;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+}
