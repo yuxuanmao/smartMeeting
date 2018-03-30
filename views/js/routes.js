@@ -22,5 +22,9 @@ app.config(function($routeProvider) {
         templateUrl : "MyRoom.html",
         controller: "chatController"
     })
+    .when("/emailCenter", {
+        templateUrl: "emailPage.html",
+        controller: "emailController"
+    })
 
 });
