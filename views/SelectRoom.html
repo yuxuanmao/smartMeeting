@@ -1,21 +1,33 @@
-<div class="rooms" align="center" style="padding-left: 60px; padding-right: 60px; padding-top: 40px; min-height: 100%;">
-    <h3 >Select which room you'd like to join below!!!</h3>
-    <ul class="room" style="margin: 40px;">
-        <div ng-repeat="item in rooms">
-            <p>{{ item }} </p>
-            <button ng-click="goToChatRoom(item)" >Go</button>
+<div class="rooms" align="center" style="border-radius: 3px; padding-top: 40px; min-height: 100%;">
+    <img id="lucyImg" src="./resources/chatlogo.png" alt="chatlogo">
+    <div style="display: flex; background-color: white;">
+        <div class="navbar" style="height: 605px; width: 20%; vertical-align: top;">
+            <ul>
+                <li id="Profile">Profile</li>
+                <li id="Moments">Moments</li>
+                <li id="Friends">Friends</li>
+                <li id="Chats">Chats</li>
+            </ul>
         </div>
-    </ul>
+        <div class="roomblock" align="center" style="padding-left: 60px; padding-right: 60px; padding-top: 40px; min-height: 100%;">
 
-    <div class="form-group">
-        <div class="form-check">
-          <label class="form-check-label" for="gridCheck">
-            Room Name
-          </label>
-          <input type="roomName" ng-model = "newRoom" class="form-control" id="roomName" placeholder="Room Name">
-          <button type="submit" class="btn btn-primary" ng-click = "addRoom(newRoom)">Add Room</button>
+            <h3 >Select which room you'd like to join below!!!</h3>
+            <ul class="room" style="margin: 40px;">
+                <div ng-repeat="item in rooms">
+                    <p ng-click="goToChatRoom(item)">{{ item }} </p>
+                </div>
+            </ul>
+
+            <div class="form-group">
+                <div class="form-check">
+                  <label class="form-check-label" for="gridCheck">
+                    Room Name:
+                  </label>
+                  <input type="roomName" ng-model = "newRoom" class="form-control" id="roomName" placeholder="Room Name">
+                  <button type="submit" ng-click = "addRoom(newRoom)">Add Room</button>
+                </div>
+            </div>
+
         </div>
     </div>
-    
-
 </div>

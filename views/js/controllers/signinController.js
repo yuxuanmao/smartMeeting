@@ -1,4 +1,4 @@
-app.controller('signinController', function($scope, $http, $location) {
+app.controller('signinController', function($scope, $http, $location, registerService) {
 
     $scope.signinshow = true;
 
