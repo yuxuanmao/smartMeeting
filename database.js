@@ -4,7 +4,6 @@ var MongoClient = require('mongodb').MongoClient;
 
 var url = "mongodb://18.188.83.191:27017/local";
 var db;
-var Insert;
 
 MongoClient.connect(url, function(err, mydb) {
   if (err) throw err;
@@ -330,6 +329,5 @@ MongoClient.connect(url, function(err, mydb) {
   });
   mydb.close();
 });
-
 
 

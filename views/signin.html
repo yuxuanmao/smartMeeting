@@ -1,0 +1,16 @@
+<div id="signin" class="signinpage" ng-show="signinshow">
+        <img id="lucyImg" src="./resources/logosmall.png" alt="logosmall">
+        <div class="signinblock">
+            <div align="right" style="padding: 5px;">
+                <button id="signupbt2" ng-click="signupToggle2()">Sign Up</button>
+            </div>
+            <div class="signinform" align="center">
+                <h2>Sign In<h3>
+                <form>
+                    <input type="text" name="email" placeholder="Email" ng-model ="user.email"><br>
+                    <input type="text" name="password" placeholder="Password" ng-model ="user.password"><br>
+                    <button id="signininput" class="btn btn-dark" ng-click="roomToggle()">SIGN IN</button>
+                </form>
+            </div>
+        </div>
+    </div>

@@ -1,7 +1,11 @@
 app.service('userInfo', function() {
     this.user = 'myUser';
     this.room = 'myRoom';
-
+    this.employer;
+    this.department;
+    this.email;
+    this.password;
+    
     this.getUser = function () {
         return this.user;
     }

@@ -6,4 +6,16 @@
             <button ng-click="goToChatRoom(item)" >Go</button>
         </div>
     </ul>
+
+    <div class="form-group">
+        <div class="form-check">
+          <label class="form-check-label" for="gridCheck">
+            Room Name
+          </label>
+          <input type="roomName" ng-model = "newRoom" class="form-control" id="roomName" placeholder="Room Name">
+          <button type="submit" class="btn btn-primary" ng-click = "addRoom(newRoom)">Add Room</button>
+        </div>
+    </div>
+    
+
 </div>

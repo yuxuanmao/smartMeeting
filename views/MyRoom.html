@@ -2,20 +2,22 @@
     <div class="chat" align="center" style="padding-left: 60px; display: block;
     padding-right: 60px; padding-top: 40px; width: 80%; height:100%;">
         <div class="chatHeader">
-            <button id="chatBack">Back</button>
+            <button id="chatBack" ng-click ="backToRoomList()">Back</button>
             <p id="roomName" style="align: center; width: 100%; margin-top:
-            10px; color: white;font-size: 20px; font-weight: bold;">Chat Room:</p>
+            10px; color: white;font-size: 20px; font-weight: bold;">Chat Room: {{ room }}</p>
         </div>
         <div align="left" style="overflow-y: scroll; height: 400px;
         margin-bottom: 50px;">
-          <ul id="messages" ng-repeat = "item in pastChats">
-            <p> {{ item }} </p>
-
+          <ul id="messages" >
+              <li ng-repeat = 'x in pastChats'>
+                <p>{{ x.user }} : {{ x.msg}}</p>
+                <p ng-if = "x.document_tone.tones.length != 0">{{ x.document_tone.tones }} </p>
+              </li>
           </ul>
         </div>
         <div id="messageArea" style="display: inline-block; position: relative;">
             <input id="m" ng-model = "message" type="text" class="form-control" placeholder="Message..." style="height:40px;">
-            <button id="sendMessage" class="btn btn-dark" ng-click = "sendMessage()" >Send</button>
+            <button id="sendMessage" class="btn btn-dark" ng-click = "send()" >Send</button>
         </div>
 
     </div>

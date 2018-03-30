@@ -11,6 +11,8 @@
   "author": "Kerjohn Chen",
   "license": "ISC",
   "dependencies": {
+    "angular-local-storage": "^0.7.1",
+    "angular-socket-io": "^0.7.0",
     "body-parser": "^1.18.2",
     "browser-sync": "^2.23.6",
     "ejs": "^2.5.7",
@@ -25,7 +27,9 @@
     "mongoose": "^5.0.11",
     "nodemon": "^1.12.1",
     "request": "^2.83.0",
-    "socket.io": "^2.0.3"
+    "socket.io": "^2.0.3",
+    "socket.io-client": "^2.0.4",
+    "watson-developer-cloud": "^3.2.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
