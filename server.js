@@ -65,21 +65,28 @@ app.post('/signin', (req, res) => {
 })
 
 app.post('/addNewRoom', (req, res) => {
-    var query = { name: req.params.name };
-    db.collection("User_Rooms").findOne({name: req.params.name}, function(err, result) {
-
+    var info = JSON.parse(JSON.stringify(req.body));
+    
+    db.collection("User_Rooms").findOne({name: info.user}, function(err, result) {
+        console.log("This user's room list");
+        console.log(result);
         if (result == null) {
             var rooms = []
-            rooms.push(req.params.room);
+            rooms.push(info.room);
             db.collection("User_Rooms").insertOne({
-               name: req.params.name,
+               name: info.user,
                rooms: rooms
             });
         } else {
-            var rooms = result[0].rooms;
-            
-            console.log(result[0]);
-            //res.json({result: "pass"});
+            var rooms = result.rooms;
+            if(rooms.indexOf(info.room) == -1){
+                rooms.push(info.room);
+
+                db.collection("User_Rooms").updateOne({ "_id": result._id}, {$set: {rooms : rooms} }, function(err, res) {
+                    if (err) throw err;
+                    console.log("1 document updated");
+                });
+            }
         }
     })
 })
