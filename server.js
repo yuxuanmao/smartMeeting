@@ -36,7 +36,14 @@ app.get('/rooms:name', (req, res) =>{
         if (err) res.send(err);
         console.log("User Chat Room Lists");
         console.log(results);
-        res.send(results[0]);
+        if(results.length == 0){
+            console.log("send empty room");
+            res.send({ "rooms" : [] });
+        } else {
+            console.log("send search res");
+            res.send(results[0]);
+        }
+        
     })
 })
 
@@ -70,7 +77,8 @@ app.post('/addNewRoom', (req, res) => {
             });
         } else {
             var rooms = result[0].rooms;
-            //console.log(result);
+            
+            console.log(result[0]);
             //res.json({result: "pass"});
         }
     })

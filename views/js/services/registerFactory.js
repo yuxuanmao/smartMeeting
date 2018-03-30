@@ -42,6 +42,11 @@ app.factory('registerService', function($http, $location, userInfo){
             }).then(function(response) {
                 var res = JSON.parse(JSON.stringify(response.data)).result;
                 if (res != "fail") {
+                    userInfo.setUser(res.username);
+                    userInfo.setEmployer(res.employer);
+                    userInfo.setDepartment(res.department);
+                    userInfo.setEmail(res.email);
+
                     $location.path('/selectRoom');
                     console.log("signin sucess");
                 } else {
