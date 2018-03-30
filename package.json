@@ -20,7 +20,9 @@
     "gulp-livereload": "^3.8.1",
     "gulp-nodemon": "^2.2.1",
     "gulp-notify": "^3.2.0",
+    "mongo-triggers": "0.0.5",
     "mongodb": "^3.0.4",
+    "mongoose": "^5.0.11",
     "nodemon": "^1.12.1",
     "request": "^2.83.0",
     "socket.io": "^2.0.3"
