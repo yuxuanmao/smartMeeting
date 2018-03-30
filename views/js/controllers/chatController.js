@@ -8,7 +8,7 @@ app.controller('chatController', function($scope, $http, $location, socket, user
         method : "GET",
         url : "/pastChats" + $scope.room
     }).then(function(response) {
-        console.log(JSON.parse(JSON.stringify(response.data)));
+        //console.log(JSON.parse(JSON.stringify(response.data)));
         $scope.pastChats = JSON.parse(JSON.stringify(response.data));
         
     }, function (err) {
