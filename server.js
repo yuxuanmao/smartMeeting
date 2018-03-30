@@ -48,12 +48,12 @@ app.post('/signin', (req, res) => {
     console.log(user_email);
     console.log(user_password);
 
-    de.collection("userLogin").findOne({email: user_email, password: user_password}, function(err, result) {
+    db.collection("userLogin").findOne({email: user_email, password: user_password}, function(err, result) {
 
         if (result == null) {
-            res.send({result: "fail"});
+            res.json({result: "fail"});
         } else {
-            res.send({result: "pass"});
+            res.json({result: "pass"});
         }
     })
 })
@@ -65,7 +65,7 @@ app.post('/signup', (req, res) => {
     var user_employer = JSON.parse(JSON.stringify(req.body)).employer;
     var user_department = JSON.parse(JSON.stringify(req.body)).department;
     var user_team = JSON.parse(JSON.stringify(req.body)).team;
-    
+
     var email_query = {email: user_email};
     var username_query = {username: user_username};
 

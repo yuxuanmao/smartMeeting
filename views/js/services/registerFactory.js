@@ -30,25 +30,21 @@ app.factory('registerService', function($http, $location){
             $http({
                 method: "POST",
                 url: "/signin",
-                json: {
+                data: {
                     'email': user.email,
                     'password': user.password,
                 }
             }).then(function(response) {
-                var res = JSON.parse(JSON.stringify(response.data)).result
-                if (res == "true") {
-                    $scope.signinshow  = $scope.signinshow === true ? false : true;
-    
-                    check = false;
-    
+                var res = JSON.parse(JSON.stringify(response.data)).result;
+                if (res == "pass") {
                     $location.path('/selectRoom');
+                    console.log("signin sucess");
                 } else {
                     console.log("signin failed");
                 }
-            }),
-            function(err) {
+            }, function(err) {
                 console.log(err);
-            };
+            });
         }
     }
 });
