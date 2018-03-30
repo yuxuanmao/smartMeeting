@@ -1,14 +1,13 @@
 app.controller('roomController', function($scope, $http, $location, userInfo) {
     $http({
         method : "GET",
-        url : "/rooms" + "John"
+        url : "/rooms" + userInfo.getUser()
     }).then(function(response) {
         //console.log(JSON.parse(JSON.stringify(response.data)).rooms);
         $scope.rooms = JSON.parse(JSON.stringify(response.data)).rooms;
         $scope.user =JSON.parse(JSON.stringify(response.data)).name;
         $scope.goToChatRoom = function(id){
             userInfo.setRoom(id);
-            userInfo.setUser($scope.user);
             $location.path('/myRoom');
         }
     }, function (err) {

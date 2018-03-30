@@ -1,6 +1,6 @@
 app.service('userInfo', function() {
-    this.user = 'myUser';
-    this.room = 'myRoom';
+    this.user;
+    this.room;
     this.employer;
     this.department;
     this.email;
