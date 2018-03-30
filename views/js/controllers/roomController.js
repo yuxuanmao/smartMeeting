@@ -23,7 +23,8 @@ app.controller('roomController', function($scope, $http, $location, userInfo) {
             method: "POST",
             url: "/addNewRoom",
             json: {
-                'room': room
+                'room': room,
+                'user': user
             }
         }).then(function(response) {
             

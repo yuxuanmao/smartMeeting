@@ -20,6 +20,7 @@ app.factory('registerService', function($http, $location, userInfo){
                     userInfo.setEmployer(user.employer);
                     userInfo.setDepartment(user.department);
                     userInfo.setEmail(user.email);
+
                     $location.path('/selectRoom');
                     console.log("signup success");
                 } else {
@@ -40,7 +41,7 @@ app.factory('registerService', function($http, $location, userInfo){
                 }
             }).then(function(response) {
                 var res = JSON.parse(JSON.stringify(response.data)).result;
-                if (res == "pass") {
+                if (res != "fail") {
                     $location.path('/selectRoom');
                     console.log("signin sucess");
                 } else {
