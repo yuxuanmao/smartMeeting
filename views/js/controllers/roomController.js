@@ -21,7 +21,7 @@ app.controller('roomController', function($scope, $http, $location, userInfo) {
         $scope.newRoom = "";
 
         $http({
-            method: "POST",
+            method: "PUT",
             url: "/addNewRoom",
             data: {
                 'room': room,
