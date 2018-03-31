@@ -152,11 +152,12 @@ exports.chatRemove = function(db, query, callback){
 }
 
 exports.roomInsert = function(db, query, callback){
-    db.collection('Users').find({_usr_name: query._usr_name}, function(err, user){
+    db.collection('Users').findOne({_usr_name: query._usr_name}, function(err, user){
         if(err) throw err;
         if(!user){
             db.collection('User_Rooms').insert(query, function(err, res){
                 if(err) throw err;
+                console.log(res);
             });
         }else{
             exports.roomUpdate(db, query, callback);
@@ -166,27 +167,38 @@ exports.roomInsert = function(db, query, callback){
 }
 
 exports.roomUpdate = function(db, query, callback){
-    db.collection('User_Rooms').find({_usr_name: query._usr_name}, function(err, user){
-        var rooms = typeof user.rooms !== "undefined" ? user.rooms : [];
+    db.collection('User_Rooms').findOne({_usr_name: query._usr_name}, function(err, user){
+        //var rooms = typeof user.rooms !== "undefined" ? user.rooms : [];
         var flag = false;
-        for(var i=0; i<query.rooms.length; i++){
-            if(typeof user.rooms !== "undefined"){
-                for(var j=0; j<user.rooms.length; i++){
-                    if(query.rooms[i] == user.rooms[j]){
-                    flag = true;
-                    break;
+        if(!user){
+            db.collection('User_Rooms').insert(query, function(err, res){
+                if(err) throw err;
+                console.log(res);
+            });
+        } else {
+
+            for(var i=0; i<query.rooms.length; i++){
+                if(typeof user.rooms !== "undefined"){
+                    for(var j=0; j<user.rooms.length; i++){
+                        if(query.rooms[i] == user.rooms[j]){
+                        flag = true;
+                        break;
+                        }
                     }
                 }
+                if(flag == false){
+                    rooms.push(query.rooms[i]);
+                }else{
+                    flag = false;
+                }
             }
-            if(flag == false){
-                rooms.push(query.rooms[i]);
-            }else{
-                flag = false;
-            }
+            db.collection('User_Rooms').updateOne({"_id": user._id}, {$set: {rooms: rooms}}, function(err, res){
+                if(err) throw err;
+                //console.log(res);
+            })
         }
-        db.collection('User_Rooms').updateOne({_usr_name: query}, {$set: {rooms: rooms}}, function(err, res){
-            if(err) throw err;
-        })
+        
+        
     })
 }
 

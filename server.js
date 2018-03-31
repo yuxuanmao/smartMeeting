@@ -33,16 +33,17 @@ app.use(express.static(__dirname+ '/views'));
 app.get('/rooms:name', (req, res) =>{
     var query = { _usr_name: req.params.name };
 
-    db.collection('User_Rooms').find(query).toArray(function(err, results) {
+    //db.collection('User_Rooms').find(query).toArray(function(err, results) {
+    db.collection('User_Rooms').findOne({_usr_name: req.params.name}, function(err, results) {
         if (err) res.send(err);
         //console.log("User Chat Room Lists");
-        //console.log(results);
+        console.log(results);
         if(results.length == 0){
             //console.log("send empty room");
             res.send({ "rooms" : [] });
         } else {
             //console.log("send search res");
-            res.send(results[0]);
+            res.send(results);
         }
         
     })
@@ -59,7 +60,7 @@ app.post('/signin', (req, res) => {
             res.json({result: "fail"});
         } else {
             //console.log("User Sign in Info");
-            console.log(result);
+            //console.log(result);
             res.json({result: result});
         }
     })
