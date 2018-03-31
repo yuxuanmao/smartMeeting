@@ -50,12 +50,13 @@ exports.userRemove = function(db, query, callback){
 exports.postInsert = function(db, query, callback){
     db.collection('Users').findOne({$or: [{_usr_name: query._usr_name}, {usr_email: query.usr_email}]}, function(err, result){
         if(result){
+            var insertQuery = {_usr_name: result._usr_name, post_content: query.post_content, post_pic: query.pic_id};
             if(query.pic_id == null){
-                db.collection('Posts').insert(query, callback());
+                db.collection('Posts').insert(insertQuery, callback());
             }else{
                 db.collection('Pics').findOne({_pic_id: query._pic_id}, function(err, pic){
                     if(pic){
-                        db.collection('Posts').insert(query, callback());
+                        db.collection('Posts').insert(insertQuery, callback());
                     }else{
                         callback(new Error());
                     }

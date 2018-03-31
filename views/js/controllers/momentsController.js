@@ -1,10 +1,10 @@
-app.controller('momentsController', function($scope, $http) {
-
+app.controller('momentsController', function($scope, $http, userInfo) {
+    $scope.user = userInfo.getUser();
     $scope.post;
 
     $http({
         method: "GET",
-        url: "/moments"
+        url: "/moments" + $scope.user
     }).then(function(response) {
 
         $scope.posts = JSON.parse(JSON.stringify(response.data));

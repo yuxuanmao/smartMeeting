@@ -49,13 +49,14 @@ app.get('/rooms:name', (req, res) =>{
     })
 })
 
-app.get('/moments', (req, res) => {
+app.get('/moments:name', (req, res) => {
 
     var user_name = JSON.parse(JSON.stringify(req.body)).name;
-
-    db.collection("Posts").findOne({_usr_name: user_name}, function(err, result) {
-        res.json({result: result});
-        console.log("get from database successful");
+    console.log(req.params.name);
+    db.collection("Posts").find({_usr_name: req.params.name}).toArray(function(err, result) {
+        //res.json({result: result});
+        res.send(result);
+        console.log(JSON.stringify(result));
     });
 })
 
