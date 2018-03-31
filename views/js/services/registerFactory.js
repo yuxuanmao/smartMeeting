@@ -20,6 +20,7 @@ app.factory('registerService', function($http, $location, userInfo){
                     userInfo.setEmployer(user.employer);
                     userInfo.setDepartment(user.department);
                     userInfo.setEmail(user.email);
+                    userInfo.setTeam(user.team);
 
                     $location.path('/selectRoom');
                     console.log("signup success");
@@ -46,6 +47,7 @@ app.factory('registerService', function($http, $location, userInfo){
                     userInfo.setEmployer(res.employer);
                     userInfo.setDepartment(res.department);
                     userInfo.setEmail(res.email);
+                    userInfo.setTeam(res.team);
 
                     $location.path('/selectRoom');
                     console.log("signin sucess");

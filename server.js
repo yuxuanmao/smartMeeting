@@ -64,7 +64,7 @@ app.post('/signin', (req, res) => {
     })
 })
 
-app.post('/addNewRoom', (req, res) => {
+app.put('/addNewRoom', (req, res) => {
     var info = JSON.parse(JSON.stringify(req.body));
     
     db.collection("User_Rooms").findOne({name: info.user}, function(err, result) {

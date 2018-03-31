@@ -4,6 +4,7 @@ app.service('userInfo', function() {
     this.employer;
     this.department;
     this.email;
+    this.team;
     this.password;
     
     this.getUser = function () {
@@ -35,5 +36,11 @@ app.service('userInfo', function() {
     }
     this.setEmail = function(email){
         this.email = email;
+    }
+    this.getTeam = function () {
+        return this.team;
+    }
+    this.setTeam = function (team) {
+        this.team = team;
     }
 });
