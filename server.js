@@ -94,15 +94,8 @@ app.post('/signin', (req, res) => {
 
 app.put('/addNewRoom', (req, res) => {
     var info = JSON.parse(JSON.stringify(req.body));
-<<<<<<< HEAD
-
-    db.collection("User_Rooms").findOne({name: info.user}, function(err, result) {
-        //console.log("This user's room list");
-        //console.log(result);
-=======
     
     db.collection("User_Rooms").findOne({_usr_name: info.user}, function(err, result) {
->>>>>>> 662aa8e69b4723076654dda915cd1eb4a3543b80
         if (result == null) {
             var rooms = []
             rooms.push(info.room);  
@@ -191,34 +184,6 @@ var tone_analyzer = new ToneAnalyzerV3({
    version_date: '2017-09-21'
  });
 
-<<<<<<< HEAD
-app.post('/analyzeChat', (req, res) => {
-    var message = JSON.parse(JSON.stringify(req.body)).message;
-
-    var jsontext = '{"text": "' + message +' "}';
-    var content = JSON.parse(jsontext);
-    var params = {
-        'tone_input': content,
-        'content_type': 'application/json'
-    };
-    var data='';
-    tone_analyzer.tone(params, function(error, response) {
-        if (error)
-            console.log('error:', error);
-        else
-        data = response;
-        //console.log("Tone Analyzer Result");
-        //console.log(data);
-
-        }
-    );
-
-    res.send(data);
-
-})
-
-=======
->>>>>>> 662aa8e69b4723076654dda915cd1eb4a3543b80
 app.get('*', (req,res) =>{
     res.sendFile(__dirname + '/views/index.html');
 })
