@@ -9,7 +9,7 @@ user@email.com
 user
 
 
-====================== Info about database ========================== By Leon
+====================== Info about database ========================== By Leon\n
 List of available table:
   Users (for user profile information)
   Posts (for Moments post)
