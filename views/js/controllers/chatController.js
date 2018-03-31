@@ -41,24 +41,21 @@ app.controller('chatController', function($scope, $http, $location, socket, user
         
         
         var tones = data.document_tone.tones;
-        // console.log(tones);
-        var processed_data = {};
-        
-        processed_data["msg"] = data.msg;
-        processed_data["tones"] = "";
+        data["processed_tones"] = "";
         for (i = 0; i < tones.length; i++) {
             
             var tone = tones[i];
             var tone_name = tone["tone_name"];
             var score = Number(tone["score"]).toFixed(1);
             var str = tone_name + " " + score + " ";
-            processed_data["tones"] += str;
+            data["processed_tones"] += str;
            
         }
        
-        console.log(processed_data);
+        // console.log(processed_data);
         console.log(data);
-        $scope.pastChats.push(processed_data);
+        console.log(data.user);
+        $scope.pastChats.push(data);
     });
 
     $scope.changeChat = function(chat_user) {

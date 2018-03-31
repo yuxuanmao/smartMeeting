@@ -162,6 +162,7 @@ app.post('/analyzeChat', (req, res) => {
         data = response;
         console.log("Tone Analyzer Result");
         console.log(data);
+        
         }
     );
 
@@ -202,7 +203,24 @@ tech.on('connection', (socket) => {
                 console.log('error:', error);
             else
                 res = JSON.parse(JSON.stringify(response, null, 2));
+                // process the anaylyzed results
+           
+                var tones = res.document_tone.tones;
+                res["processed_tones"] = "";
+                for (i = 0; i < tones.length; i++) {
 
+                    var tone = tones[i];
+                    var tone_name = tone["tone_name"];
+                    var score = Number(tone["score"]).toFixed(1);
+                    var str = tone_name + " " + score + " ";
+                    res["processed_tones"] += str;
+
+                }
+
+                // console.log(processed_data);
+                // console.log(res);
+                // console.log(res.user);
+                
             var userInfo = { room: data.room, user: data.user, msg: data.msg };
             var all = Object.assign({}, res, userInfo);
             console.log(all);

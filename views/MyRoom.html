@@ -8,8 +8,8 @@
         <div align="left" style="overflow-y: scroll; height: 400px; margin-bottom: 50px;">
           <ul id="messages" overflow="auto">
               <li ng-class='changeChat(x.user)' ng-repeat = 'x in pastChats'>
-                <p>{{ x.user }} : {{ x.msg}}</p>
-                <p ng-if = "x.tones.length != 0">{{ x.tones }} </p>
+                <p>{{ x.user }} : {{ x.msg }}</p>
+                <p ng-if = "x.tones.length != 0">{{ x.processed_tones }} </p>
               </li>
           </ul>
         </div>
