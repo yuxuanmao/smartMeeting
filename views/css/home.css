@@ -168,7 +168,9 @@ h2 {
 #msg{
     background: #A6A6A6;
 }
-
+.navbar ul a{
+    text-decoration: none;
+}
 
 .navbar {
     height:605px;
@@ -192,6 +194,10 @@ h2 {
     border-radius: 3px;
     color: #154360;
     width: 100%;
+}
+
+.navbar li:hover {
+    background-color: #0099cc;
 }
 
 /* Room Pages CSS */

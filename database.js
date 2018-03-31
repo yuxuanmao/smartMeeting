@@ -31,7 +31,7 @@ MongoClient.connect(url, function(err, mydb) {
       if(err) throw err;
       console.log("created User_Rooms");
   });
-  db.createCollection("Users", { 
+  db.createCollection("Users", {
       validator:{
           $jsonSchema: {
               bsonType: "object",
@@ -64,6 +64,11 @@ MongoClient.connect(url, function(err, mydb) {
                       bsonType: "string",
                       default: null,
                       description: "user may belong to a team"
+                  },
+                  usr_pic: {
+                      bsonType: "string",
+                      default: null,
+                      description: "user's profile picture"
                   }
               }
           }
@@ -97,7 +102,7 @@ MongoClient.connect(url, function(err, mydb) {
                 next(new Error());
             }
         })
-    });  
+    });
   });
   db.createCollection("Posts", {
     validator:{
@@ -323,7 +328,7 @@ MongoClient.connect(url, function(err, mydb) {
     });
   });
   db.createCollection("Chats", {
-    validator:{ 
+    validator:{
         $jsonSchema: {
             bsonType: "object",
             unique: ["_usr_name", "_chat_name"],
@@ -374,6 +379,3 @@ MongoClient.connect(url, function(err, mydb) {
   });
   mydb.close();
 });
-
-
-
