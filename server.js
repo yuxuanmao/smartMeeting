@@ -34,13 +34,13 @@ app.get('/rooms:name', (req, res) =>{
 
     db.collection('User_Rooms').find(query).toArray(function(err, results) {
         if (err) res.send(err);
-        console.log("User Chat Room Lists");
-        console.log(results);
+        //console.log("User Chat Room Lists");
+        //console.log(results);
         if(results.length == 0){
-            console.log("send empty room");
+            //console.log("send empty room");
             res.send({ "rooms" : [] });
         } else {
-            console.log("send search res");
+            //console.log("send search res");
             res.send(results[0]);
         }
         
@@ -57,8 +57,8 @@ app.post('/signin', (req, res) => {
         if (result == null) {
             res.json({result: "fail"});
         } else {
-            console.log("User Sign in Info");
-            console.log(result);
+            //console.log("User Sign in Info");
+            //console.log(result);
             res.json({result: result});
         }
     })
@@ -68,8 +68,8 @@ app.put('/addNewRoom', (req, res) => {
     var info = JSON.parse(JSON.stringify(req.body));
     
     db.collection("User_Rooms").findOne({name: info.user}, function(err, result) {
-        console.log("This user's room list");
-        console.log(result);
+        //console.log("This user's room list");
+        //console.log(result);
         if (result == null) {
             var rooms = []
             rooms.push(info.room);
@@ -115,8 +115,8 @@ app.post('/signup', (req, res) => {
             });
             db.collection("userLogin").find({}).toArray(function(err, result) {
                 if (err) throw err;
-                console.log("SignUp Result");
-                console.log(result);
+                //console.log("SignUp Result");
+                //console.log(result);
             });
             res.json({result: "pass"});
 
@@ -131,8 +131,8 @@ app.get('/pastChats:room', (req, res) => {
 
     db.collection('Room_chatHistory').find(query).toArray(function(err, results) {
         if (err) res.send(err);
-        console.log("Room Chat List");
-        console.log(results);
+        //console.log("Room Chat List");
+        //console.log(results);
         res.send(results);
     })
 })
@@ -160,8 +160,8 @@ app.post('/analyzeChat', (req, res) => {
             console.log('error:', error);
         else
         data = response;
-        console.log("Tone Analyzer Result");
-        console.log(data);
+        //console.log("Tone Analyzer Result");
+        //console.log(data);
         
         }
     );
@@ -181,6 +181,11 @@ tech.on('connection', (socket) => {
     socket.on('join', (data) => {
         socket.join(data.room);
         console.log(data.user + ' has joined ' + data.room);
+    })
+
+    socket.on('leave', (data) => {
+        console.log(data.user + ' has left ' + data.room);
+        socket.leave(data.room);
     })
 
     socket.on('chat message', (data) => {

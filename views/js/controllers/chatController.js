@@ -14,11 +14,7 @@ app.controller('chatController', function($scope, $http, $location, socket, user
     }, function (err) {
         console.log(err);
     });
-
-    socket.on('connect', () => {
-        // emiting to everybody
-        socket.emit('join', { user: $scope.user, room: $scope.room});
-    });
+    socket.emit('join', { user: $scope.user, room: $scope.room});
 
     $scope.send = function(){
 
@@ -27,6 +23,7 @@ app.controller('chatController', function($scope, $http, $location, socket, user
     };
 
     $scope.backToRoomList = function(){
+        socket.emit('leave', { user: $scope.user, room: $scope.room});
         $location.path('/selectRoom');
     };
 
