@@ -13,6 +13,7 @@ app.controller('momentsController', function($scope, $http) {
             $scope.post = item;
         }
     }, function(err) {
+        console.log("error getting the posts");
         console.log(err);
     });
 
@@ -20,10 +21,11 @@ app.controller('momentsController', function($scope, $http) {
         $http({
             method: "DELETE",
             url: "/moments"
+        }).then(function(response) {
+            console.log("delete successful");
+        }, function(err) {
+            console.log("error deleting the post");
+            console.log(err);
         });
-    }.then(function(response) {
-        console.log("delete successful");
-    }), function(err) {
-        console.log(err);
-    }
+    };
 });
