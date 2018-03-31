@@ -145,31 +145,6 @@ var tone_analyzer = new ToneAnalyzerV3({
    version_date: '2017-09-21'
  });
 
-app.post('/analyzeChat', (req, res) => {
-    var message = JSON.parse(JSON.stringify(req.body)).message;
-   
-    var jsontext = '{"text": "' + message +' "}';
-    var content = JSON.parse(jsontext);
-    var params = {
-        'tone_input': content,
-        'content_type': 'application/json'
-    };
-    var data='';
-    tone_analyzer.tone(params, function(error, response) {
-        if (error)
-            console.log('error:', error);
-        else
-        data = response;
-        //console.log("Tone Analyzer Result");
-        //console.log(data);
-        
-        }
-    );
-
-    res.send(data);
-
-})
-
 app.get('*', (req,res) =>{
     res.sendFile(__dirname + '/views/index.html');
 })
