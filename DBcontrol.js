@@ -1,3 +1,30 @@
+/*
+This file contains all available control functions for Database.
+In order to maintain the integrity of DB, I made several function for Insert and Remove rows from each table.
+There is no update function as I think there is no need to check specifically unless you need to change primary key
+or foregin key.
+The following is the list of functions available
+##Users table
+    userInsert(database, query, callback) -for insert
+    userRemove(database, query, callback) -for remove user info and all other corresponding info in other table
+##Posts table
+    postInsert(database, query, callback) -for insert
+    postRemove(database, query, callback) -for remove
+##Pics table
+    picInsert(database, query, callback) -for insert
+    picRemove(database, query, callback) -for remove
+##EmailWarehouse table
+    emailwarehouseInsert(database, query, callback) -for insert
+##Emails table
+    emailInsert(database, query, callback) -for insert
+    emailRemove(database, query, callback) -for remove email info and corresponding info in email warehouse
+##Chats
+    chatInsert(database, query, callback) -for insert
+    chatRemove(database, query, callback) -for remove
+
+*Please do not use default built in functions from mongodb except UPDATE function.
+*/
+
 exports.userInsert = function(db, query, callback){
     db.collection('Users').findOne({_usr_name: query._usr_name}, function(err, result){
         if(result){
@@ -9,14 +36,11 @@ exports.userInsert = function(db, query, callback){
 }
 
 exports.userRemove = function(db, query, callback){
-    db.collection('Users').findOne({_usr_name: query._usr_name}, function(err, user){
-        if(user){
-            chatRemove(db, {_usr_name: query._usr_name}, callback);
-            friendRemove(db, {_usr_name: query._usr_name}, callback);
-            postRemove(db, {_usr_name: query._usr_name}, callback);
-            emailRemove(db, query, callback);
-        }
-    })
+    db.collection('Users').remove(query);
+    chatRemove(db, {_usr_name: query._usr_name}, callback);
+    friendRemove(db, {_usr_name: query._usr_name}, callback);
+    postRemove(db, {_usr_name: query._usr_name}, callback);
+    emailRemove(db, query, callback);
 }
 
 exports.postInsert = function(db, query, callback){
