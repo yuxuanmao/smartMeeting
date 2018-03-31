@@ -12,24 +12,46 @@
                 <button id="logoutbt" type="submit">Log Out</button>
         </div>
 
-        <div class="profilebar" align="center" style="left: 30%; padding-left: 60px; padding-right: 60px; padding-top: 40px; min-height: 100%;">
+        <div class="profilebar" align="center" style=" width:100%; padding-left: 60px; padding-right: 10px; min-height: 100%;">
+            <div class="container" style="width:100%;">
+                <div id="leftSection"; style="float:left; width:35%;">   
+                        <img src="./resources/charlene_avatar.png" alt="Avatar" class="avatar">
+                </div>
+                
+                <div id="rightSection"; align="left"; style="float:right; width:65%;"> 
+                    <p id="userName"; class="card-text">
+                        <span>Place Holder</span>
+                        <span ng-bind="username"></span>
+                    </p>
+                    <div id="userInfo", style="padding-left: 60px; line-height:200%;">
+                        <p id="email" class="card-text">
+                            <span class="card-title">Email:</span>
+                            <span ng-bind="email"></span>
+                        </p>
+                        
+                        <p id="employer" class="card-text">
+                            <span class="card-title">Employer: </span>
+                            <span ng-bind="employer"></span>
+                        </p>
+                        
+                        <p id="department" class="card-text">
+                            <span class="card-title">Department: </span>
+                            <span ng-bind="department"></span>
+                        </p>
+                        
+                        
+                        <p id="team" class="card-text">
+                            <span class="card-title">Team: </span>
+                            <span ng-bind="team"></span>
+                        </p>
+                    </div>
+                    
+                </div>
+            </div>
             <div id="logo">
             </div>
 
-            <h5 class="card-title">User Name: </h5>
-            <p id = "userName" class="card-text"> <span ng-bind = "username"></span></p>
-
-            <h5 class="card-title">Email: </h5>
-            <p id = "email" class="card-text"> <span ng-bind = "email"></span></p>
-
-            <h5 class="card-title">Employer: </h5>
-            <p id = "employer" class="card-text"> <span ng-bind = "employer"></span></p>
-
-            <h5 class="card-title">Department: </h5>
-            <p id = "department" class="card-text"> <span ng-bind = "department"></span></p>
-
-            <h5 class="card-title">Team: </h5>
-            <p id = "team" class="card-text"> <span ng-bind = "team"></span></p>
+            
 
         </div>
         

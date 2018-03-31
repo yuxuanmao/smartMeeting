@@ -119,6 +119,11 @@ h2 {
     margin: 0;
 }
 
+.emailblock{
+    width: 100%;
+    margin: 0;
+}
+
 .chatHeader {
     width: 100%;
     height: 50px;
@@ -196,6 +201,18 @@ h2 {
     width: 60%;
 }
 
+.emailblock p {
+    border-color: #2C3E50;
+    background-color: #2C3E50;
+    color: white;
+    border-radius: 3px;
+    padding: 10px;
+    border: 2px;
+    height: 100%;
+    width: 60%;
+}
+
+
 #logoutbt {
     width: 50%;
     height: 40px;
@@ -228,4 +245,31 @@ h2 {
     border-radius: 3px;
     color: #2471A3;
     clear: both;
+}
+
+.avatar {
+    vertical-align: middle;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    margin-top: 100px;
+    margin-left: 50px;
+}
+
+#userName{
+    font-size: 60px;
+    font-family: Apple Chancery;
+}
+
+#userInfo{
+    font-size: 20px;
+    font-family: Gill Sans, sans-serif;
+    color: black;
+    font-weight: 500;
+}
+.card-title{
+    font-size: 20px;
+    font-family: Gill Sans, sans-serif;
+    font-weight: normal;
+    color:rgba(51, 45, 45, 0.753);
 }
