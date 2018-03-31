@@ -5,7 +5,14 @@
             <button id="chatBack" ng-click ="backToRoomList()">Back</button>
             <p id="roomName" style="align: center; width: 100%; margin-top:10px; color: white;font-size: 20px; font-weight: bold;">Chat Room: {{ room }}</p>
         </div>
-        <div align="left" style="overflow-y: scroll; height: 400px; margin-bottom: 50px;">
+
+        <div id="invite" style="display: inline-block; position: relative;">
+            <input id="invite" ng-model = "inviting" type="text" class="form-control" placeholder="User Name" style="height:40px;">
+            <button id="inviteUser" class="btn btn-dark" ng-click = "invite()" >Invite</button>
+            <p ng-if="inviteRes">{{ inviteRes }}</p>
+        </div>
+
+        <div align="left" scroll="pastChats" style="overflow-y: scroll; height: 400px; margin-bottom: 50px;">
           <ul id="messages" overflow="auto">
               <li ng-class='changeChat(x.user)' ng-repeat = 'x in pastChats'>
                 <p>{{ x.user }} : {{ x.msg }}</p>

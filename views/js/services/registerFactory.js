@@ -12,7 +12,8 @@ app.factory('registerService', function($http, $location, userInfo){
                     'department': user.department,
                     'team': user.team,
                 }
-            }).then(function(response) {userInfo.setEmployer(user.employer);
+            }).then(function(response) {
+                userInfo.setEmployer(user.employer);
                 var res = JSON.parse(JSON.stringify(response.data)).result;
                 console.log(res);
                 if (res == "pass") {
@@ -43,11 +44,11 @@ app.factory('registerService', function($http, $location, userInfo){
             }).then(function(response) {
                 var res = JSON.parse(JSON.stringify(response.data)).result;
                 if (res != "fail") {
-                    userInfo.setUser(res.username);
-                    userInfo.setEmployer(res.employer);
-                    userInfo.setDepartment(res.department);
-                    userInfo.setEmail(res.email);
-                    userInfo.setTeam(res.team);
+                    userInfo.setUser(res._usr_name);
+                    userInfo.setEmployer(res.usr_employer);
+                    userInfo.setDepartment(res.usr_dept);
+                    userInfo.setEmail(res.usr_email);
+                    userInfo.setTeam(res.usr_team);
 
                     $location.path('/selectRoom');
                     console.log("signin sucess");
