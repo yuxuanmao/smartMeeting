@@ -3,33 +3,39 @@
     <div style="display: flex; background-color: white;">
         <div class="navbar" style="height: 605px; width: 20%; position: relative;">
             <ul>
-                <li id="Profile">Profile</li>
+                <li id="Profile" ><a href="#!/profile">Profile</a></li>
                 <li id="Moments">Moments</li>
                 <li id="Friends">Friends</li>
-                <li id="Chats">Chats</li>
+                <li id="Chats" ><a href="#!/selectRoom">Chats</a></li>
                 <li id="Email">Email</li>
             </ul>
                 <button id="logoutbt" type="submit">Log Out</button>
         </div>
-        <div class="roomblock" align="center" style="padding-left: 60px; padding-right: 60px; padding-top: 40px; min-height: 100%;">
 
-            <h3 >Select which room you'd like to join below!!!</h3>
-            <ul class="room" style="margin: 40px;">
-                <div ng-repeat="item in rooms">
-                    <p ng-click="goToChatRoom(item)">{{ item }} </p>
-                </div>
-            </ul>
-
-            <div class="form-group">
-                <div class="form-check">
-                  <label class="form-check-label" for="gridCheck">
-                    Room Name:
-                  </label>
-                  <input type="roomName" ng-model = "newRoom" class="form-control" id="roomName" placeholder="Room Name">
-                  <button type="submit" ng-click = "addRoom(newRoom)">Add Room</button>
-                </div>
+        <div class="profilebar" style="font-size:20px;">
+            <div id="logo">
             </div>
 
+            <h5 class="card-title">User Name: </h5>
+            <p id = "userName" class="card-text"> <span ng-bind = "username"></span></p>
+
+            <h5 class="card-title">Email: </h5>
+            <p id = "email" class="card-text"> <span ng-bind = "email"></span></p>
+
+            <h5 class="card-title">Employer: </h5>
+            <p id = "employer" class="card-text"> <span ng-bind = "employer"></span></p>
+
+            <h5 class="card-title">Department: </h5>
+            <p id = "department" class="card-text"> <span ng-bind = "department"></span></p>
+
+            <h5 class="card-title">Team: </h5>
+            <p id = "team" class="card-text"> <span ng-bind = "team"></span></p>
+
+            <h5 class="card-title">Group: </h5>
+            <p id = "group" class="card-text">LCLK</p>
+
+            <button id="updateProfileBtn" class="btn" type="submit"><span>Update Profile</span></button>
         </div>
+        
     </div>
 </div>
