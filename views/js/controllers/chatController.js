@@ -37,6 +37,27 @@ app.controller('chatController', function($scope, $http, $location, socket, user
          * {score: 0.6165, tone_id: "sadness", tone_name: "Sadness"}
          * {score: 0.6165, tone_id: "sadness", tone_name: "Sadness"}
          */
-        $scope.pastChats.push(data);
+    
+        
+        
+        var tones = data.document_tone.tones;
+        // console.log(tones);
+        var processed_data = {};
+        
+        processed_data["msg"] = data.msg;
+        processed_data["tones"] = "";
+        for (i = 0; i < tones.length; i++) {
+            
+            var tone = tones[i];
+            var tone_name = tone["tone_name"];
+            var score = Number(tone["score"]).toFixed(1);
+            var str = tone_name + " " + score + " ";
+            processed_data["tones"] += str;
+           
+        }
+       
+        console.log(processed_data);
+        console.log(data);
+        $scope.pastChats.push(processed_data);
     });
 })

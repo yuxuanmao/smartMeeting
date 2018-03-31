@@ -12,7 +12,7 @@
           <ul id="messages" >
               <li ng-repeat = 'x in pastChats'>
                 <p>{{ x.user }} : {{ x.msg}}</p>
-                <p ng-if = "x.document_tone.tones.length != 0">{{ x.document_tone.tones }} </p>
+                <p ng-if = "x.tones.length != 0">{{ x.tones }} </p>
               </li>
           </ul>
         </div>

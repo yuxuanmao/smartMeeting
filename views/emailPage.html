@@ -1,81 +1,85 @@
 <!--Email Center-->
 <div id="emailCenter" class="emailCenterPage" ng-show="emailcentershow">
+    <img id="lucyImg" src="./resources/chatlogo.png" alt="chatlogo">
+    <div class="chat" align="center" style="padding-left: 60px; display: block;
+        padding-right: 60px; padding-top: 40px; width: 80%; height:100%;">
     
-    <div class="sendOptions" id="sendOptions" style="display:block" ng-show="optionsShow">
-        <h2>What would you like to send?</h2>
-        <button id="noticebutton" ng-click="sendNotification()">Meeting Notification</button>
-        <br>
-        <button id="followupbutton" ng-click="sendFollowup()">Meeting Followup</button>
-        <br>
-        <button id="reportbutton" ng-click="sendReports()">Reports</button>
-    </div>
-
-    <div class="mailingSection" id="futureSection" style="display:block" ng-show="futureShow">
-        <div id="upcomingMeetings">
-            <h3 align="left">Coming up..</h3>
-            <button id="backbutton" type="button" ng-click="backToggle()">Back</button>
+        <div class="sendOptions" id="sendOptions" style="display:block" ng-show="optionsShow">
+            <h2>What would you like to send?</h2>
+            <button id="noticebutton" ng-click="sendNotification()">Meeting Notification</button>
             <br>
-            <table>
-                <tr>
-                    <th>Date&Time</th>
-                    <th>With</th>
-                </tr>
-                <tr>
-                    <td>2017/05</td>
-                    <td>Leon Mao</td>
-                </tr>
-                <tr>
-                    <td>2017/05</td>
-                    <td>ProfessorQ&A</td>
-                </tr>
-            </table>
+            <button id="followupbutton" ng-click="sendFollowup()">Meeting Followup</button>
+            <br>
+            <button id="reportbutton" ng-click="sendReports()">Reports</button>
+        </div>
+
+        <div class="mailingSection" id="futureSection" style="display:block" ng-show="futureShow">
+            <div id="upcomingMeetings">
+                <h3 align="left">Coming up..</h3>
+                <button id="backbutton" type="button" ng-click="backToggle()">Back</button>
+                <br>
+                <table>
+                    <tr>
+                        <th>Date&Time</th>
+                        <th>With</th>
+                    </tr>
+                    <tr>
+                        <td>2017/05</td>
+                        <td>Leon Mao</td>
+                    </tr>
+                    <tr>
+                        <td>2017/05</td>
+                        <td>ProfessorQ&A</td>
+                    </tr>
+                </table>
+            </div>
+
+
+            <div id="notificationMail">
+                <form action="javascript:alert('submitted');" name="receiver" id="receiver" method="post">
+                    To:
+                    <input name="pmSubject" id="pmSubject" type="text" maxlength="40" style="width:40%" placeholder="Email Address or Username"
+                    />
+                </form>
+                <textarea name="emailContent" id="emailContent" method="post" style="resize:none; width:40%" rows=20>Hi! this is a meeting reminder</textarea>
+                <br>
+                <button id="sendbutton" type="button" class="btn btn-primary btn-lg btn-blockSmall">Send</button>
+            </div>
         </div>
 
 
-        <div id="notificationMail">
-            <form action="javascript:alert('submitted');" name="receiver" id="receiver" method="post">
-                To:
-                <input name="pmSubject" id="pmSubject" type="text" maxlength="40" style="width:40%" placeholder="Email Address or Username"
-                />
-            </form>
-            <textarea name="emailContent" id="emailContent" method="post" style="resize:none; width:40%" rows=20>Hi! this is a meeting reminder</textarea>
-            <br>
-            <button id="sendbutton" type="button" class="btn btn-primary btn-lg btn-blockSmall">Send</button>
-        </div>
-    </div>
+        <div class="mailingSection" id="pastSection" style="display:block" ng-show="pastShow">
+            <div id="pastMeetings">
+                <h3>Past Meetings</h3>
+                <button id="backbutton" type="button" ng-click=backToggle()>Back</button>
+                <table>
+                    <tr>
+                        <th>Date&Time</th>
+                        <th>With</th>
+                        <th>Report</th>
+                    </tr>
+                    <tr>
+                        <td>2017/03</td>
+                        <td>Maria Anders</td>
+                        <td>report.txt</td>
+                    </tr>
+                    <tr>
+                        <td>2017/05</td>
+                        <td>Jane Doe</td>
+                        <td>SalesProgress.txt</td>
+                    </tr>
+                </table>
+            </div>
 
-
-    <div class="mailingSection" id="pastSection" style="display:block" ng-show="pastShow">
-        <div id="pastMeetings">
-            <h3>Past Meetings</h3>
-            <button id="backbutton" type="button" ng-click=backToggle()>Back</button>
-            <table>
-                <tr>
-                    <th>Date&Time</th>
-                    <th>With</th>
-                    <th>Report</th>
-                </tr>
-                <tr>
-                    <td>2017/03</td>
-                    <td>Maria Anders</td>
-                    <td>report.txt</td>
-                </tr>
-                <tr>
-                    <td>2017/05</td>
-                    <td>Jane Doe</td>
-                    <td>SalesProgress.txt</td>
-                </tr>
-            </table>
-        </div>
-
-        <div id="followupMail">
-            <form action="javascript:alert('submitted');" name="receiver" id="receiver" method="post">
-                To:
-                <input name="pmSubject" id="pmSubject" type="text" maxlength="40" style="width:40%" placeholder="Email Address" />
-            </form>
-            <textarea name="emailContent" id="emailContent" method="post" style="resize:none; width:40%" rows=20>Hi! Thank you for joining me in the meeting</textarea>
-            <br>
-            <button id="sendbutton" type="button" class="btn btn-primary btn-lg btn-blockSmall">Send</button>
+            <div id="followupMail">
+                <form action="javascript:alert('submitted');" name="receiver" id="receiver" method="post">
+                    To:
+                    <input name="pmSubject" id="pmSubject" type="text" maxlength="40" style="width:40%" placeholder="Email Address" />
+                </form>
+                <textarea name="emailContent" id="emailContent" method="post" style="resize:none; width:40%" rows=20>Hi! Thank you for joining me in the meeting</textarea>
+                <br>
+                <button id="sendbutton" type="button" class="btn btn-primary btn-lg btn-blockSmall">Send</button>
+            </div>
         </div>
     </div>
 </div>
