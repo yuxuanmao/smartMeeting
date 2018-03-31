@@ -21,6 +21,6 @@ gulp.task('default', function() {
 		// when the app has restarted, run livereload.
 		gulp.src('server.js')
 			.pipe(livereload())
-			.pipe(notify('Reloading page, please wait...'));
+			//.pipe(notify('Reloading page, please wait...'));
 	})
 });

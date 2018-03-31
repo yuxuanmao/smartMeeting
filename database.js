@@ -9,10 +9,6 @@ MongoClient.connect(url, function(err, mydb) {
   if (err) throw err;
   console.log("Database created!");
   db = mydb.db("mydb");
-  db.createCollection("Chats", function(err, res){
-      if(err) throw err;
-      console.log("create chat");
-  });
   db.createCollection("Users", { 
       validator:{
           $jsonSchema: {
@@ -53,6 +49,33 @@ MongoClient.connect(url, function(err, mydb) {
   }, function(err, res) {
     if (err) throw err;
     console.log("Collection Users!");
+    triggers(db.collection('Users')).insert(function(query, next){
+        db.Users.findOne({_usr_name: query._usr_name}, function(err, result){
+            if(result){
+                next(new Error());
+            }else{
+                next();
+            }
+        })
+    });
+    triggers(db.collection('Users')).update(function(query, next){
+        db.Users.findOne({_usr_name: query._usr_name}, function(err, result){
+            if(result){
+                next();
+            }else{
+                next(new Error());
+            }
+        })
+    });
+    triggers(db.collection('Users')).remove(function(query, next){
+        db.Users.findOne({_usr_name: query._usr_name}, function(err, result){
+            if(result){
+                next();
+            }else{
+                next(new Error());
+            }
+        })
+    });  
   });
   db.createCollection("Posts", {
     validator:{
@@ -329,5 +352,6 @@ MongoClient.connect(url, function(err, mydb) {
   });
   mydb.close();
 });
+
 
 

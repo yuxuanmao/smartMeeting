@@ -1,5 +1,9 @@
 const app = angular.module("myApp", ["ngRoute"]);
 
+app.run(function($rootScope) {
+    $rootScope.navbar = true;
+})
+
 app.config(function($routeProvider) {
     $routeProvider
     .when("/", {
@@ -25,6 +29,11 @@ app.config(function($routeProvider) {
     .when("/emailCenter", {
         templateUrl: "emailPage.html",
         controller: "emailController"
+    })
+
+    .when("/profile",{
+        templateUrl: "profile.html",
+        controller: "profileController"
     })
 
 });

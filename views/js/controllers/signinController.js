@@ -4,7 +4,7 @@ app.controller('signinController', function($scope, $http, $location, registerSe
 
     $scope.signupToggle2 = function() {
         $scope.signinshow  = $scope.signinshow === true ? false : true;
-        $location.path('/signuppage')
+        $location.url('/signuppage')
     };
 
     $scope.roomToggle = function() {

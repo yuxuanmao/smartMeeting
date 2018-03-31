@@ -1,16 +1,13 @@
 <div id="chatRoom" class="chatRoom" align="center">
     <img id="lucyImg" src="./resources/chatlogo.png" alt="chatlogo">
-    <div class="chat" align="center" style="padding-left: 60px; display: block;
-    padding-right: 60px; padding-top: 40px; width: 80%; height:100%;">
+    <div class="chat" align="center" style="padding-left: 60px; display: block;padding-right: 60px; padding-top: 40px; width: 80%; height:100%;">
         <div class="chatHeader">
             <button id="chatBack" ng-click ="backToRoomList()">Back</button>
-            <p id="roomName" style="align: center; width: 100%; margin-top:
-            10px; color: white;font-size: 20px; font-weight: bold;">Chat Room: {{ room }}</p>
+            <p id="roomName" style="align: center; width: 100%; margin-top:10px; color: white;font-size: 20px; font-weight: bold;">Chat Room: {{ room }}</p>
         </div>
-        <div align="left" style="overflow-y: scroll; height: 400px;
-        margin-bottom: 50px;">
-          <ul id="messages" >
-              <li ng-repeat = 'x in pastChats'>
+        <div align="left" style="overflow-y: scroll; height: 400px; margin-bottom: 50px;">
+          <ul id="messages" overflow="auto">
+              <li ng-class='changeChat(x.user)' ng-repeat = 'x in pastChats'>
                 <p>{{ x.user }} : {{ x.msg}}</p>
                 <p ng-if = "x.tones.length != 0">{{ x.tones }} </p>
               </li>

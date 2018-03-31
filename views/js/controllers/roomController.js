@@ -9,7 +9,7 @@ app.controller('roomController', function($scope, $http, $location, userInfo) {
         
         $scope.goToChatRoom = function(id){
             userInfo.setRoom(id);
-            $location.path('/myRoom');
+            $location.url('/myRoom');
         }
     }, function (err) {
         console.log(err);

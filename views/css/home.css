@@ -154,17 +154,6 @@ h2 {
 }
 
 
-#messages li {
-    padding: 10px;
-    margin: 10px;
-    background-color: #D6EAF8;
-    border: none;
-    border-radius: 3px;
-    color: #2471A3;
-    float: left;
-    clear: both;
-}
-
 #entryBox {
     position: relative;
     margin-top: 300px;
@@ -217,4 +206,26 @@ h2 {
     position: absolute;
     bottom: 10px;
     left: 10px;
+}
+
+.selfUser {
+    float: right;
+    padding: 10px;
+    margin: 10px;
+    background-color: #D4EFDF;
+    border: none;
+    border-radius: 3px;
+    color: #145A32;
+    clear: both;
+}
+
+.otherUser {
+    float: left;
+    padding: 10px;
+    margin: 10px;
+    background-color: #D6EAF8;
+    border: none;
+    border-radius: 3px;
+    color: #2471A3;
+    clear: both;
 }
