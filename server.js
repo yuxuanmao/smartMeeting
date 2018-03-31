@@ -63,19 +63,21 @@ app.delete('/deletePost', (req, res) => {
 
     var post = JSON.parse(JSON.stringify(req.body));
 
-    db.collection("Posts").findOne({_post_id: post._post_id}, function(err, result) {
+    DB.postRemove(db, {_post_id: post._post_id}, function(){});
 
-        if (result == null) {
-            res.json({result: "failure"});
-            console.log("shouldn't be this problem");
-        } else {
-            db.collection("Posts").deleteOne({
-                _post_id: post._post_id
-            });
-            res.json({result: "success"});
-            console.log("had trouble deleting post in server");
-        };
-    })
+    // db.collection("Posts").findOne({_post_id: post._post_id}, function(err, result) {
+    //
+    //     if (result == null) {
+    //         res.json({result: "failure"});
+    //         console.log("shouldn't be this problem");
+    //     } else {
+    //         db.collection("Posts").deleteOne({
+    //             _post_id: post._post_id
+    //         });
+    //         res.json({result: "success"});
+    //         console.log("had trouble deleting post in server");
+    //     };
+    // })
 })
 
 app.post('/signin', (req, res) => {
