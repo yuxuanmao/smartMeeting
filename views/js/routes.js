@@ -36,4 +36,9 @@ app.config(function($routeProvider) {
         controller: "profileController"
     })
 
+    .when("/moments", {
+        templateUrl: "moments.html",
+        controller: "momentsController"
+    })
+
 });

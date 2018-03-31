@@ -43,7 +43,33 @@ app.get('/rooms:name', (req, res) =>{
             //console.log("send search res");
             res.send(results[0]);
         }
-        
+
+    })
+})
+
+app.get('/moments', (req, res) => {
+
+    var user_name = JSON.parse(JSON.stringify(req.body)).name;
+
+    db.collection("Posts").findOne({_usr_name: user_name}, function(err, result) {
+        res.json({result: result});
+    });
+})
+
+app.delete('/deletePost', (req, res) => {
+
+    var post = JSON.parse(JSON.stringify(req.body));
+
+    db.collection("Posts").findOne({_post_id: post._post_id}, function(err, result) {
+
+        if (result == null) {
+            res.json({result: "failure"});
+        } else {
+            db.collection("Posts").deleteOne({
+                _post_id: post._post_id
+            });
+            res.json({result: "success"});
+        };
     })
 })
 
@@ -66,7 +92,7 @@ app.post('/signin', (req, res) => {
 
 app.put('/addNewRoom', (req, res) => {
     var info = JSON.parse(JSON.stringify(req.body));
-    
+
     db.collection("User_Rooms").findOne({name: info.user}, function(err, result) {
         //console.log("This user's room list");
         //console.log(result);
@@ -147,7 +173,7 @@ var tone_analyzer = new ToneAnalyzerV3({
 
 app.post('/analyzeChat', (req, res) => {
     var message = JSON.parse(JSON.stringify(req.body)).message;
-   
+
     var jsontext = '{"text": "' + message +' "}';
     var content = JSON.parse(jsontext);
     var params = {
@@ -162,7 +188,7 @@ app.post('/analyzeChat', (req, res) => {
         data = response;
         //console.log("Tone Analyzer Result");
         //console.log(data);
-        
+
         }
     );
 
@@ -209,7 +235,7 @@ tech.on('connection', (socket) => {
             else
                 res = JSON.parse(JSON.stringify(response, null, 2));
                 // process the anaylyzed results
-           
+
                 var tones = res.document_tone.tones;
                 res["processed_tones"] = "";
                 for (i = 0; i < tones.length; i++) {
@@ -225,7 +251,7 @@ tech.on('connection', (socket) => {
                 // console.log(processed_data);
                 // console.log(res);
                 // console.log(res.user);
-                
+
             var userInfo = { room: data.room, user: data.user, msg: data.msg };
             var all = Object.assign({}, res, userInfo);
             console.log(all);
