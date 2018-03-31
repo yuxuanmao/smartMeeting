@@ -64,6 +64,11 @@ MongoClient.connect(url, function(err, mydb) {
                       bsonType: "string",
                       default: null,
                       description: "user may belong to a team"
+                  },
+                  usr_pic: {
+                      bsonType: "string",
+                      default: null,
+                      description: "user's profile picture"
                   }
               }
           }

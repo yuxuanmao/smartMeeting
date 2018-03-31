@@ -172,6 +172,10 @@ h2 {
     list-style-type: none;
 }
 
+.nav ul a {
+    text-decoration: none;
+}
+
 .navbar li {
     padding: 10px;
     margin-top: 20px;
@@ -183,6 +187,10 @@ h2 {
     border-radius: 3px;
     color: #154360;
     width: 100%;
+}
+
+.navbar li:hover {
+    background-color: #0099cc;
 }
 
 .roomblock p {
