@@ -30,13 +30,20 @@ app.use(express.static(__dirname+ '/views'));
 
 
 app.get('/rooms:name', (req, res) =>{
-    console.log(req.params.name);
     var query = { name: req.params.name };
 
     db.collection('User_Rooms').find(query).toArray(function(err, results) {
         if (err) res.send(err);
+        console.log("User Chat Room Lists");
         console.log(results);
-        res.send(results[0]);
+        if(results.length == 0){
+            console.log("send empty room");
+            res.send({ "rooms" : [] });
+        } else {
+            console.log("send search res");
+            res.send(results[0]);
+        }
+        
     })
 })
 
@@ -45,15 +52,41 @@ app.post('/signin', (req, res) => {
     var user_email = JSON.parse(JSON.stringify(req.body)).email;
     var user_password = JSON.parse(JSON.stringify(req.body)).password;
 
-    console.log(user_email);
-    console.log(user_password);
-
     db.collection("userLogin").findOne({email: user_email, password: user_password}, function(err, result) {
 
         if (result == null) {
             res.json({result: "fail"});
         } else {
-            res.json({result: "pass"});
+            console.log("User Sign in Info");
+            console.log(result);
+            res.json({result: result});
+        }
+    })
+})
+
+app.post('/addNewRoom', (req, res) => {
+    var info = JSON.parse(JSON.stringify(req.body));
+    
+    db.collection("User_Rooms").findOne({name: info.user}, function(err, result) {
+        console.log("This user's room list");
+        console.log(result);
+        if (result == null) {
+            var rooms = []
+            rooms.push(info.room);
+            db.collection("User_Rooms").insertOne({
+               name: info.user,
+               rooms: rooms
+            });
+        } else {
+            var rooms = result.rooms;
+            if(rooms.indexOf(info.room) == -1){
+                rooms.push(info.room);
+
+                db.collection("User_Rooms").updateOne({ "_id": result._id}, {$set: {rooms : rooms} }, function(err, res) {
+                    if (err) throw err;
+                    console.log("1 document updated");
+                });
+            }
         }
     })
 })
@@ -82,6 +115,7 @@ app.post('/signup', (req, res) => {
             });
             db.collection("userLogin").find({}).toArray(function(err, result) {
                 if (err) throw err;
+                console.log("SignUp Result");
                 console.log(result);
             });
             res.json({result: "pass"});
@@ -94,10 +128,10 @@ app.post('/signup', (req, res) => {
 
 app.get('/pastChats:room', (req, res) => {
     var query = { room: req.params.room };
-    console.log(query);
 
     db.collection('Room_chatHistory').find(query).toArray(function(err, results) {
         if (err) res.send(err);
+        console.log("Room Chat List");
         console.log(results);
         res.send(results);
     })
@@ -113,9 +147,7 @@ var tone_analyzer = new ToneAnalyzerV3({
 
 app.post('/analyzeChat', (req, res) => {
     var message = JSON.parse(JSON.stringify(req.body)).message;
-    //console.log(message);
-// This is tone analyzer provided methods
-
+   
     var jsontext = '{"text": "' + message +' "}';
     var content = JSON.parse(jsontext);
     var params = {
@@ -127,9 +159,8 @@ app.post('/analyzeChat', (req, res) => {
         if (error)
             console.log('error:', error);
         else
-
-        //data = JSON.stringify(response, null, 2);
         data = response;
+        console.log("Tone Analyzer Result");
         console.log(data);
         }
     );

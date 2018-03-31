@@ -8,9 +8,9 @@ app.controller('chatController', function($scope, $http, $location, socket, user
         method : "GET",
         url : "/pastChats" + $scope.room
     }).then(function(response) {
-        console.log(JSON.parse(JSON.stringify(response.data)));
+        //console.log(JSON.parse(JSON.stringify(response.data)));
         $scope.pastChats = JSON.parse(JSON.stringify(response.data));
-        
+
     }, function (err) {
         console.log(err);
     });
@@ -18,17 +18,17 @@ app.controller('chatController', function($scope, $http, $location, socket, user
     socket.on('connect', () => {
         // emiting to everybody
         socket.emit('join', { user: $scope.user, room: $scope.room});
-    })
+    });
 
     $scope.send = function(){
 
         socket.emit('chat message', { user: $scope.user, msg: $scope.message, room: $scope.room});
         $scope.message="";
-    }
+    };
 
     $scope.backToRoomList = function(){
         $location.path('/selectRoom');
-    }
+    };
 
     socket.on('chat message', function(data){
         /**
@@ -39,4 +39,13 @@ app.controller('chatController', function($scope, $http, $location, socket, user
          */
         $scope.pastChats.push(data);
     });
+
+    $scope.changeChat = function(chat_user) {
+
+        if (chat_user == $scope.user) {
+            return "selfUser"
+        } else {
+            return "otherUser"
+        }
+    }
 })
