@@ -9,6 +9,28 @@ MongoClient.connect(url, function(err, mydb) {
   if (err) throw err;
   console.log("Database created!");
   db = mydb.db("mydb");
+  db.createCollection("User_Rooms", {
+    validator:{
+        $jsonSchema: {
+            basonType: "object",
+            unique: ["_usr_name"],
+            required: ["_usr_name"],
+            properties: {
+                _usr_name: {
+                    bsonType: "string",
+                    description: "user name"
+                },
+                rooms: {
+                    bsonType: "array",
+                    description: "list of rooms that this user belongs to"
+                }
+            }
+        }
+    }
+}, function(err, res){
+      if(err) throw err;
+      console.log("created User_Rooms");
+  });
   db.createCollection("Users", { 
       validator:{
           $jsonSchema: {

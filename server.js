@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const DB = require('./DBcontrol.js');
 
 const app= express();
 const server = require('http').Server(app);
@@ -30,7 +31,7 @@ app.use(express.static(__dirname+ '/views'));
 
 
 app.get('/rooms:name', (req, res) =>{
-    var query = { name: req.params.name };
+    var query = { _usr_name: req.params.name };
 
     db.collection('User_Rooms').find(query).toArray(function(err, results) {
         if (err) res.send(err);
@@ -52,7 +53,7 @@ app.post('/signin', (req, res) => {
     var user_email = JSON.parse(JSON.stringify(req.body)).email;
     var user_password = JSON.parse(JSON.stringify(req.body)).password;
 
-    db.collection("userLogin").findOne({email: user_email, password: user_password}, function(err, result) {
+    db.collection("Users").findOne({usr_email: user_email, usr_pass: user_password}, function(err, result) {
 
         if (result == null) {
             res.json({result: "fail"});
@@ -67,25 +68,27 @@ app.post('/signin', (req, res) => {
 app.put('/addNewRoom', (req, res) => {
     var info = JSON.parse(JSON.stringify(req.body));
     
-    db.collection("User_Rooms").findOne({name: info.user}, function(err, result) {
+    db.collection("User_Rooms").findOne({_usr_name: info.user}, function(err, result) {
         //console.log("This user's room list");
         //console.log(result);
         if (result == null) {
             var rooms = []
             rooms.push(info.room);
-            db.collection("User_Rooms").insertOne({
-               name: info.user,
-               rooms: rooms
-            });
+            // db.collection("User_Rooms").insertOne({
+            //    name: info.user,
+            //    rooms: rooms
+            // });
+            DB.roomInsert(db, {_usr_name: info.user, rooms: rooms}, function(){});
         } else {
             var rooms = result.rooms;
             if(rooms.indexOf(info.room) == -1){
-                rooms.push(info.room);
+                //rooms.push(info.room);
 
-                db.collection("User_Rooms").updateOne({ "_id": result._id}, {$set: {rooms : rooms} }, function(err, res) {
-                    if (err) throw err;
-                    console.log("1 document updated");
-                });
+                // db.collection("User_Rooms").updateOne({ "_id": result._id}, {$set: {rooms : rooms} }, function(err, res) {
+                //     if (err) throw err;
+                //     console.log("1 document updated");
+                // });
+                DB.roomUpdate(db, {_usr_name: info.user, rooms: info.room}, function(){});
             }
         }
     })
@@ -99,21 +102,21 @@ app.post('/signup', (req, res) => {
     var user_department = JSON.parse(JSON.stringify(req.body)).department;
     var user_team = JSON.parse(JSON.stringify(req.body)).team;
 
-    var email_query = {email: user_email};
-    var username_query = {username: user_username};
+    var email_query = {usr_email: user_email};
+    var username_query = {_usr_name: user_username};
 
-    db.collection("userLogin").findOne({username: user_username}, function(err, result) {
+    db.collection("Users").findOne({_usr_name: user_username}, function(err, result) {
 
         if (!err) {
-            db.collection("userLogin").insertOne({
-                email: user_email,
-                username: user_username,
-                password: user_password,
-                employer: user_employer,
-                department: user_department,
-                team: user_team
+            db.collection("Users").insertOne({
+                usr_email: user_email,
+                _usr_name: user_username,
+                usr_pass: user_password,
+                usr_employer: user_employer,
+                usr_dept: user_department,
+                usr_team: user_team
             });
-            db.collection("userLogin").find({}).toArray(function(err, result) {
+            db.collection("Users").find({}).toArray(function(err, result) {
                 if (err) throw err;
                 //console.log("SignUp Result");
                 //console.log(result);

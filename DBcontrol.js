@@ -21,6 +21,10 @@ The following is the list of functions available
 ##Chats
     chatInsert(database, query, callback) -for insert
     chatRemove(database, query, callback) -for remove
+##User_Rooms
+    roomInsert(database, query, callback) -for insert or update
+    roomUpdate(database, query, callback) -for update
+    roomRemove(database, query, callback) -for remove
 
 *Please do not use default built in functions from mongodb except UPDATE function.
 */
@@ -145,6 +149,48 @@ exports.chatInsert = function(db, query, callback){
 
 exports.chatRemove = function(db, query, callback){
     db.collection('Chats').remove(query, callback());
+}
+
+exports.roomInsert = function(db, query, callback){
+    db.collection('Users').find({_usr_name: query._usr_name}, function(err, user){
+        if(err) throw err;
+        if(!user){
+            db.collection('User_Rooms').insert(query, function(err, res){
+                if(err) throw err;
+            });
+        }else{
+            roomUpdate(db, query, callback);
+        }
+    })
+}
+
+exports.roomUpdate = function(db, query, callback){
+    db.collection('User_Rooms').find({_usr_name: query._usr_name}, function(err, user){
+        var rooms = user.rooms;
+        var flag = false;
+        for(var i=0; i<query.rooms.length; i++){
+            for(var j=0; j<user.rooms.length; i++){
+                if(query.rooms[i] == user.rooms[j]){
+                   flag = true;
+                   break;
+                }
+            }
+            if(flag == false){
+                rooms.push(query.rooms[i]);
+            }else{
+                flag = false;
+            }
+        }
+        db.collection('User_Rooms').updateOne({_usr_name: query}, {$set: {rooms: rooms}}, function(err, res){
+            if(err) throw err;
+        })
+    })
+}
+
+exports.roomRemove = function(db, query, callback){
+    db.collection('User_Rooms').remove({_usr_name: query._usr_name}, function(err, user){
+        if(err) throw err;
+    })
 }
 
 //update function is normal so just use update()
