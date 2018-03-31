@@ -38,7 +38,7 @@ app.get('/rooms:name', (req, res) =>{
         if (err) res.send(err);
         //console.log("User Chat Room Lists");
         console.log(results);
-        if(results.length == 0){
+        if(results == null || results.length == 0){
             //console.log("send empty room");
             res.send({ "rooms" : [] });
         } else {
@@ -55,6 +55,7 @@ app.get('/moments', (req, res) => {
 
     db.collection("Posts").findOne({_usr_name: user_name}, function(err, result) {
         res.json({result: result});
+        console.log("get from database successful");
     });
 })
 
@@ -62,17 +63,21 @@ app.delete('/deletePost', (req, res) => {
 
     var post = JSON.parse(JSON.stringify(req.body));
 
-    db.collection("Posts").findOne({_post_id: post._post_id}, function(err, result) {
+    DB.postRemove(db, {_post_id: post._post_id}, function(){});
 
-        if (result == null) {
-            res.json({result: "failure"});
-        } else {
-            db.collection("Posts").deleteOne({
-                _post_id: post._post_id
-            });
-            res.json({result: "success"});
-        };
-    })
+    // db.collection("Posts").findOne({_post_id: post._post_id}, function(err, result) {
+    //
+    //     if (result == null) {
+    //         res.json({result: "failure"});
+    //         console.log("shouldn't be this problem");
+    //     } else {
+    //         db.collection("Posts").deleteOne({
+    //             _post_id: post._post_id
+    //         });
+    //         res.json({result: "success"});
+    //         console.log("had trouble deleting post in server");
+    //     };
+    // })
 })
 
 app.post('/signin', (req, res) => {
@@ -94,11 +99,11 @@ app.post('/signin', (req, res) => {
 
 app.put('/addNewRoom', (req, res) => {
     var info = JSON.parse(JSON.stringify(req.body));
-    
+
     db.collection("User_Rooms").findOne({_usr_name: info.user}, function(err, result) {
         if (result == null) {
             var rooms = []
-            rooms.push(info.room);  
+            rooms.push(info.room);
             DB.roomInsert(db, {_usr_name: info.user, rooms: rooms}, function(){});
         } else {
             var rooms = result.rooms;

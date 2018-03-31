@@ -154,10 +154,9 @@ exports.chatRemove = function(db, query, callback){
 exports.roomInsert = function(db, query, callback){
     db.collection('Users').findOne({_usr_name: query._usr_name}, function(err, user){
         if(err) throw err;
-        if(!user){
+        if(user == null){
             db.collection('User_Rooms').insert(query, function(err, res){
                 if(err) throw err;
-                
             });
         }else{
             exports.roomUpdate(db, query, callback);
@@ -168,28 +167,34 @@ exports.roomInsert = function(db, query, callback){
 
 exports.roomUpdate = function(db, query, callback){
     db.collection('User_Rooms').findOne({_usr_name: query._usr_name}, function(err, user){
+        if(user == null){
+            db.collection('User_Rooms').insert(query, function(err, res){
+                if(err) throw err;
+                
+            });
+        }else{
+            var flag = false;
+            var rooms = user.rooms;
         
-        var flag = false;
-        var rooms = user.rooms;
-       
-        for(var j=0; j<user.rooms.length; j++){
-            if(query.rooms == user.rooms[j]){
-                flag = true;
-                break;
+            for(var j=0; j<user.rooms.length; j++){
+                if(query.rooms == user.rooms[j]){
+                    flag = true;
+                    break;
+                }
+                
             }
             
-        }
-        
-        if(flag == false){
-            rooms.push(query.rooms);
-        }else{
-            flag = false;
-        }
-        
-        db.collection('User_Rooms').updateOne({"_id": user._id}, {$set: {rooms: rooms}}, function(err, res){
-            if(err) throw err;
+            if(flag == false){
+                rooms.push(query.rooms);
+            }else{
+                flag = false;
+            }
             
-        })
+            db.collection('User_Rooms').updateOne({"_id": user._id}, {$set: {rooms: rooms}}, function(err, res){
+                if(err) throw err;
+                
+            })
+        }
     })
 }
 

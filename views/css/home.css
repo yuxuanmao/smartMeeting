@@ -170,7 +170,11 @@ h2 {
 }
 
 
-/* Room Pages CSS */
+.navbar {
+    height:605px;
+    width: 20%;
+    position: relative;
+}
 
 .navbar ul {
     padding-left: 0;
@@ -189,6 +193,8 @@ h2 {
     color: #154360;
     width: 100%;
 }
+
+/* Room Pages CSS */
 
 .roomblock p {
     border-color: #2C3E50;
