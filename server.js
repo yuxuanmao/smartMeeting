@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const DB = require('./DBcontrol.js');
 
 const app= express();
 const server = require('http').Server(app);
@@ -30,18 +31,19 @@ app.use(express.static(__dirname+ '/views'));
 
 
 app.get('/rooms:name', (req, res) =>{
-    var query = { name: req.params.name };
+    var query = { _usr_name: req.params.name };
 
-    db.collection('User_Rooms').find(query).toArray(function(err, results) {
+    //db.collection('User_Rooms').find(query).toArray(function(err, results) {
+    db.collection('User_Rooms').findOne({_usr_name: req.params.name}, function(err, results) {
         if (err) res.send(err);
         //console.log("User Chat Room Lists");
-        //console.log(results);
+        console.log(results);
         if(results.length == 0){
             //console.log("send empty room");
             res.send({ "rooms" : [] });
         } else {
             //console.log("send search res");
-            res.send(results[0]);
+            res.send(results);
         }
 
     })
@@ -78,7 +80,7 @@ app.post('/signin', (req, res) => {
     var user_email = JSON.parse(JSON.stringify(req.body)).email;
     var user_password = JSON.parse(JSON.stringify(req.body)).password;
 
-    db.collection("userLogin").findOne({email: user_email, password: user_password}, function(err, result) {
+    db.collection("Users").findOne({usr_email: user_email, usr_pass: user_password}, function(err, result) {
 
         if (result == null) {
             res.json({result: "fail"});
@@ -92,26 +94,23 @@ app.post('/signin', (req, res) => {
 
 app.put('/addNewRoom', (req, res) => {
     var info = JSON.parse(JSON.stringify(req.body));
+<<<<<<< HEAD
 
     db.collection("User_Rooms").findOne({name: info.user}, function(err, result) {
         //console.log("This user's room list");
         //console.log(result);
+=======
+    
+    db.collection("User_Rooms").findOne({_usr_name: info.user}, function(err, result) {
+>>>>>>> 662aa8e69b4723076654dda915cd1eb4a3543b80
         if (result == null) {
             var rooms = []
-            rooms.push(info.room);
-            db.collection("User_Rooms").insertOne({
-               name: info.user,
-               rooms: rooms
-            });
+            rooms.push(info.room);  
+            DB.roomInsert(db, {_usr_name: info.user, rooms: rooms}, function(){});
         } else {
             var rooms = result.rooms;
             if(rooms.indexOf(info.room) == -1){
-                rooms.push(info.room);
-
-                db.collection("User_Rooms").updateOne({ "_id": result._id}, {$set: {rooms : rooms} }, function(err, res) {
-                    if (err) throw err;
-                    console.log("1 document updated");
-                });
+                DB.roomUpdate(db, {_usr_name: info.user, rooms: info.room}, function(){});
             }
         }
     })
@@ -125,29 +124,50 @@ app.post('/signup', (req, res) => {
     var user_department = JSON.parse(JSON.stringify(req.body)).department;
     var user_team = JSON.parse(JSON.stringify(req.body)).team;
 
-    var email_query = {email: user_email};
-    var username_query = {username: user_username};
+    var email_query = {usr_email: user_email};
+    var username_query = {_usr_name: user_username};
 
-    db.collection("userLogin").findOne({username: user_username}, function(err, result) {
+    db.collection("Users").findOne({_usr_name: user_username}, function(err, result) {
 
         if (!err) {
-            db.collection("userLogin").insertOne({
-                email: user_email,
-                username: user_username,
-                password: user_password,
-                employer: user_employer,
-                department: user_department,
-                team: user_team
+            db.collection("Users").insertOne({
+                usr_email: user_email,
+                _usr_name: user_username,
+                usr_pass: user_password,
+                usr_employer: user_employer,
+                usr_dept: user_department,
+                usr_team: user_team
             });
-            db.collection("userLogin").find({}).toArray(function(err, result) {
-                if (err) throw err;
-                //console.log("SignUp Result");
-                //console.log(result);
-            });
+
             res.json({result: "pass"});
 
         } else {
             res.json({result: "fail"});
+        }
+    })
+})
+
+app.post('/invite', (req, res) => {
+    var user = JSON.parse(JSON.stringify(req.body)).user;
+    var room = JSON.parse(JSON.stringify(req.body)).room;
+
+    db.collection("Users").findOne({_usr_name: user}, function(err, result) {
+        if (result == null) {
+            res.json({result: "fail"});
+        } else {
+            db.collection("User_Rooms").findOne({_usr_name: user}, function(err, result) {
+                if (result == null) {
+                    var rooms = [];
+                    rooms.push(room);
+                    DB.roomInsert(db, {_usr_name: user, rooms: rooms}, function(){});
+                } else {
+                    var rooms = result.rooms;
+                    if(rooms.indexOf(room) == -1){
+                        DB.roomUpdate(db, {_usr_name: user, rooms: room}, function(){});
+                    }
+                }
+            })
+            res.json({result: "pass"});
         }
     })
 })
@@ -171,6 +191,7 @@ var tone_analyzer = new ToneAnalyzerV3({
    version_date: '2017-09-21'
  });
 
+<<<<<<< HEAD
 app.post('/analyzeChat', (req, res) => {
     var message = JSON.parse(JSON.stringify(req.body)).message;
 
@@ -196,6 +217,8 @@ app.post('/analyzeChat', (req, res) => {
 
 })
 
+=======
+>>>>>>> 662aa8e69b4723076654dda915cd1eb4a3543b80
 app.get('*', (req,res) =>{
     res.sendFile(__dirname + '/views/index.html');
 })
