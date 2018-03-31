@@ -59,7 +59,7 @@ app.post('/signin', (req, res) => {
             res.json({result: "fail"});
         } else {
             //console.log("User Sign in Info");
-            //console.log(result);
+            console.log(result);
             res.json({result: result});
         }
     })
