@@ -5,7 +5,7 @@
             <button id="chatBack" ng-click ="backToRoomList()">Back</button>
             <p id="roomName" style="align: center; width: 100%; margin-top:10px; color: white;font-size: 20px; font-weight: bold;">Chat Room: {{ room }}</p>
         </div>
-        <div align="left" style="overflow-y: scroll; height: 400px; margin-bottom: 50px;">
+        <div align="left" scroll="pastChats" style="overflow-y: scroll; height: 400px; margin-bottom: 50px;">
           <ul id="messages" overflow="auto">
               <li ng-class='changeChat(x.user)' ng-repeat = 'x in pastChats'>
                 <p>{{ x.user }} : {{ x.msg }}</p>
