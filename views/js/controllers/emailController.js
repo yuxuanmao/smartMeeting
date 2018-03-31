@@ -1,4 +1,4 @@
-app.controller('emailController', function ($scope, $location) {
+app.controller('emailController', function ($scope, $http, $location, socket) {
 
     $scope.emailcentershow = true;
     $scope.optionsShow = true;
@@ -24,5 +24,11 @@ app.controller('emailController', function ($scope, $location) {
         $scope.pastShow = false;
     };
 
+    $scope.sendPost = function(){
+        $scope.inviteRes = ""
+        socket.emit('post info', { usr_email: $scope.other.email, post_content: $scope.user.notification});
+        $scope.user.notification="";
+        $scope.other.email="";
+    }
 
 });

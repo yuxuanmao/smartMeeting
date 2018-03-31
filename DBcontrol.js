@@ -48,21 +48,21 @@ exports.userRemove = function(db, query, callback){
 }
 
 exports.postInsert = function(db, query, callback){
-    db.collection('Posts').findOne({_post_id: query._post_id}, function(err, post){
-        if(!post){
-            db.collection('Users').findOne({_usr_name: query._usr_name}, function(err, result){
-                if(result){
-                    db.collection('Pics').findOne({_pic_id: query._pic_id}, function(err, pic){
-                        if(pic){
-                            db.collection('Posts').insert(query, callback());
-                        }else{
-                            callback(new Error());
-                        }
-                    }) 
-                }else{
-                    callback(new Error());
-                }
-            })
+    db.collection('Users').findOne({$or: [{_usr_name: query._usr_name}, {usr_email: query.usr_email}]}, function(err, result){
+        if(result){
+            if(query.pic_id == null){
+                db.collection('Posts').insert(query, callback());
+            }else{
+                db.collection('Pics').findOne({_pic_id: query._pic_id}, function(err, pic){
+                    if(pic){
+                        db.collection('Posts').insert(query, callback());
+                    }else{
+                        callback(new Error());
+                    }
+                }) 
+            }
+        }else{
+            callback(new Error());
         }
     })
 }

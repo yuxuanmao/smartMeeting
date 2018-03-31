@@ -264,3 +264,11 @@ tech.on('connection', (socket) => {
         console.log('user disconnected');
     })
 })
+
+
+//const tech = io.of('/tech');
+tech.on('connection', (socket) => {
+    socket.on('post info', (data) => {
+        DB.postInsert(db, {usr_email: data.usr_email, post_content: data.post_content}, function(){});
+    });
+})
