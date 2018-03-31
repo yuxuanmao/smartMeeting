@@ -159,20 +159,23 @@ exports.roomInsert = function(db, query, callback){
                 if(err) throw err;
             });
         }else{
-            roomUpdate(db, query, callback);
+            exports.roomUpdate(db, query, callback);
+            
         }
     })
 }
 
 exports.roomUpdate = function(db, query, callback){
     db.collection('User_Rooms').find({_usr_name: query._usr_name}, function(err, user){
-        var rooms = user.rooms;
+        var rooms = typeof user.rooms !== "undefined" ? user.rooms : [];
         var flag = false;
         for(var i=0; i<query.rooms.length; i++){
-            for(var j=0; j<user.rooms.length; i++){
-                if(query.rooms[i] == user.rooms[j]){
-                   flag = true;
-                   break;
+            if(typeof user.rooms !== "undefined"){
+                for(var j=0; j<user.rooms.length; i++){
+                    if(query.rooms[i] == user.rooms[j]){
+                    flag = true;
+                    break;
+                    }
                 }
             }
             if(flag == false){
