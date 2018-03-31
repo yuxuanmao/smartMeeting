@@ -168,35 +168,29 @@ exports.roomInsert = function(db, query, callback){
 
 exports.roomUpdate = function(db, query, callback){
     db.collection('User_Rooms').findOne({_usr_name: query._usr_name}, function(err, user){
-        //var rooms = typeof user.rooms !== "undefined" ? user.rooms : [];
+        
         var flag = false;
-        if(!user){
-            db.collection('User_Rooms').insert(query, function(err, res){
-                if(err) throw err;
-                console.log(res);
-            });
-        } else {
-
-            for(var i=0; i<query.rooms.length; i++){
-                if(typeof user.rooms !== "undefined"){
-                    for(var j=0; j<user.rooms.length; i++){
-                        if(query.rooms[i] == user.rooms[j]){
-                        flag = true;
-                        break;
-                        }
-                    }
-                }
-                if(flag == false){
-                    rooms.push(query.rooms[i]);
-                }else{
-                    flag = false;
-                }
+        var rooms = user.rooms;
+        console.log(query.rooms);
+        for(var j=0; j<user.rooms.length; j++){
+            if(query.rooms == user.rooms[j]){
+                flag = true;
+                break;
             }
-            db.collection('User_Rooms').updateOne({"_id": user._id}, {$set: {rooms: rooms}}, function(err, res){
-                if(err) throw err;
-                //console.log(res);
-            })
+            console.log("check for duplicate");
         }
+        
+        if(flag == false){
+            rooms.push(query.rooms);
+        }else{
+            flag = false;
+        }
+        
+        db.collection('User_Rooms').updateOne({"_id": user._id}, {$set: {rooms: rooms}}, function(err, res){
+            if(err) throw err;
+            console.log(res);
+        })
+        
         
         
     })
