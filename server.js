@@ -70,25 +70,13 @@ app.put('/addNewRoom', (req, res) => {
     var info = JSON.parse(JSON.stringify(req.body));
     
     db.collection("User_Rooms").findOne({_usr_name: info.user}, function(err, result) {
-        //console.log("This user's room list");
-        //console.log(result);
         if (result == null) {
             var rooms = []
-            rooms.push(info.room);
-            // db.collection("User_Rooms").insertOne({
-            //    name: info.user,
-            //    rooms: rooms
-            // });
+            rooms.push(info.room);  
             DB.roomInsert(db, {_usr_name: info.user, rooms: rooms}, function(){});
         } else {
             var rooms = result.rooms;
             if(rooms.indexOf(info.room) == -1){
-                //rooms.push(info.room);
-
-                // db.collection("User_Rooms").updateOne({ "_id": result._id}, {$set: {rooms : rooms} }, function(err, res) {
-                //     if (err) throw err;
-                //     console.log("1 document updated");
-                // });
                 DB.roomUpdate(db, {_usr_name: info.user, rooms: info.room}, function(){});
             }
         }
@@ -117,15 +105,36 @@ app.post('/signup', (req, res) => {
                 usr_dept: user_department,
                 usr_team: user_team
             });
-            db.collection("Users").find({}).toArray(function(err, result) {
-                if (err) throw err;
-                //console.log("SignUp Result");
-                //console.log(result);
-            });
+
             res.json({result: "pass"});
 
         } else {
             res.json({result: "fail"});
+        }
+    })
+})
+
+app.post('/invite', (req, res) => {
+    var user = JSON.parse(JSON.stringify(req.body)).user;
+    var room = JSON.parse(JSON.stringify(req.body)).room;
+
+    db.collection("Users").findOne({_usr_name: user}, function(err, result) {
+        if (result == null) {
+            res.json({result: "fail"});
+        } else {
+            db.collection("User_Rooms").findOne({_usr_name: user}, function(err, result) {
+                if (result == null) {
+                    var rooms = [];
+                    rooms.push(room);
+                    DB.roomInsert(db, {_usr_name: user, rooms: rooms}, function(){});
+                } else {
+                    var rooms = result.rooms;
+                    if(rooms.indexOf(room) == -1){
+                        DB.roomUpdate(db, {_usr_name: user, rooms: room}, function(){});
+                    }
+                }
+            })
+            res.json({result: "pass"});
         }
     })
 })

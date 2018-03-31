@@ -157,7 +157,7 @@ exports.roomInsert = function(db, query, callback){
         if(!user){
             db.collection('User_Rooms').insert(query, function(err, res){
                 if(err) throw err;
-                console.log(res);
+                
             });
         }else{
             exports.roomUpdate(db, query, callback);
@@ -171,13 +171,13 @@ exports.roomUpdate = function(db, query, callback){
         
         var flag = false;
         var rooms = user.rooms;
-        console.log(query.rooms);
+       
         for(var j=0; j<user.rooms.length; j++){
             if(query.rooms == user.rooms[j]){
                 flag = true;
                 break;
             }
-            console.log("check for duplicate");
+            
         }
         
         if(flag == false){
@@ -188,11 +188,8 @@ exports.roomUpdate = function(db, query, callback){
         
         db.collection('User_Rooms').updateOne({"_id": user._id}, {$set: {rooms: rooms}}, function(err, res){
             if(err) throw err;
-            console.log(res);
+            
         })
-        
-        
-        
     })
 }
 

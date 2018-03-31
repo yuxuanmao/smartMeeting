@@ -3,7 +3,7 @@ app.controller('chatController', function($scope, $http, $location, socket, user
     $scope.room = userInfo.getRoom();
     $scope.user = userInfo.getUser();
     $scope.pastChats;
-
+    $scope.inviteRes;
     $http({
         method : "GET",
         url : "/pastChats" + $scope.room
@@ -16,8 +16,30 @@ app.controller('chatController', function($scope, $http, $location, socket, user
     });
     socket.emit('join', { user: $scope.user, room: $scope.room});
 
-    $scope.send = function(){
+    $scope.invite = function(){
+        var user = $scope.inviting;
+        $scope.inviting = ""
+        $http({
+            method: "POST",
+            url: "/invite",
+            data: {
+                'room': $scope.room,
+                'user': user
+            }
+        }).then(function(response) {
+            var res = JSON.parse(JSON.stringify(response.data)).result;
+            if (res == "pass") {
+                $scope.inviteRes = "Successful";
+            } else {
+                $scope.inviteRes = "Fail";
+            }
 
+        }, function (err) {
+            console.log(err);
+        });
+    }
+    $scope.send = function(){
+        $scope.inviteRes = ""
         socket.emit('chat message', { user: $scope.user, msg: $scope.message, room: $scope.room});
         $scope.message="";
     };
@@ -34,9 +56,6 @@ app.controller('chatController', function($scope, $http, $location, socket, user
          * {score: 0.6165, tone_id: "sadness", tone_name: "Sadness"}
          * {score: 0.6165, tone_id: "sadness", tone_name: "Sadness"}
          */
-    
-        
-        
         var tones = data.document_tone.tones;
         data["processed_tones"] = "";
         for (i = 0; i < tones.length; i++) {

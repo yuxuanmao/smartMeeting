@@ -12,7 +12,8 @@ app.factory('registerService', function($http, $location, userInfo){
                     'department': user.department,
                     'team': user.team,
                 }
-            }).then(function(response) {userInfo.setEmployer(user.employer);
+            }).then(function(response) {
+                userInfo.setEmployer(user.employer);
                 var res = JSON.parse(JSON.stringify(response.data)).result;
                 console.log(res);
                 if (res == "pass") {
