@@ -6,7 +6,7 @@ var ObjectId = require('mongodb').ObjectID;
 const app= express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://18.188.83.191:27017/local";
