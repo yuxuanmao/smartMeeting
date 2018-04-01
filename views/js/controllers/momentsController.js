@@ -10,7 +10,8 @@ app.controller('momentsController', function($scope, $http, userInfo) {
         $scope.posts = JSON.parse(JSON.stringify(response.data));
 
         $scope.selectPost = function(item) {
-            $scope.post = item;
+           $scope.post = item;
+            console.log(item._id);
         }
     }, function(err) {
         console.log("error getting the posts");
@@ -20,8 +21,9 @@ app.controller('momentsController', function($scope, $http, userInfo) {
     $scope.deletePost = function(){
         $http({
             method: "DELETE",
-            url: "/moments"
+            url: "/moments" + $scope.post._id
         }).then(function(response) {
+            $location.url('/moments');
             console.log("delete successful");
         }, function(err) {
             console.log("error deleting the post");

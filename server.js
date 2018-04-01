@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const DB = require('./DBcontrol.js');
+var ObjectId = require('mongodb').ObjectID;
 
 const app= express();
 const server = require('http').Server(app);
@@ -50,8 +51,6 @@ app.get('/rooms:name', (req, res) =>{
 })
 
 app.get('/moments:name', (req, res) => {
-
-    var user_name = JSON.parse(JSON.stringify(req.body)).name;
     console.log(req.params.name);
     db.collection("Posts").find({_usr_name: req.params.name}).toArray(function(err, result) {
         //res.json({result: result});
@@ -60,26 +59,7 @@ app.get('/moments:name', (req, res) => {
     });
 })
 
-app.delete('/deletePost', (req, res) => {
 
-    var post = JSON.parse(JSON.stringify(req.body));
-
-    DB.postRemove(db, {_post_id: post._post_id}, function(){});
-
-    // db.collection("Posts").findOne({_post_id: post._post_id}, function(err, result) {
-    //
-    //     if (result == null) {
-    //         res.json({result: "failure"});
-    //         console.log("shouldn't be this problem");
-    //     } else {
-    //         db.collection("Posts").deleteOne({
-    //             _post_id: post._post_id
-    //         });
-    //         res.json({result: "success"});
-    //         console.log("had trouble deleting post in server");
-    //     };
-    // })
-})
 
 app.post('/signin', (req, res) => {
 
@@ -272,4 +252,15 @@ tech.on('connection', (socket) => {
     socket.on('post info', (data) => {
         DB.postInsert(db, {usr_email: data.usr_email, post_content: data.post_content}, function(){});
     });
+})
+
+
+app.delete('/moments:id', (req, res) => {
+    //var post = JSON.parse(JSON.stringify(req.body));
+    console.log(req.params.id);
+    db.collection('Posts').remove({"_id": new ObjectId(req.params.id)}, function(err, result){
+        if(err) throw err;
+        res.send(result);
+    });
+   
 })

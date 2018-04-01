@@ -1,6 +1,6 @@
 app.controller('roomController', function($scope, $http, $location, userInfo) {
     $scope.user = userInfo.getUser();
-
+    
     $http({
         method : "GET",
         url : "/rooms" + $scope.user
