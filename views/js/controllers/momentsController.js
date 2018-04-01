@@ -23,7 +23,15 @@ app.controller('momentsController', function($scope, $http, userInfo) {
             method: "DELETE",
             url: "/moments" + $scope.post._id
         }).then(function(response) {
-            $location.url('/moments');
+            $http({
+                method: "GET",
+                url: "/moments" + $scope.user
+            }).then(function(response) {
+                $scope.posts = JSON.parse(JSON.stringify(response.data));
+            }, function(err) {
+                console.log("error getting the posts");
+                console.log(err);
+            });
             console.log("delete successful");
         }, function(err) {
             console.log("error deleting the post");
