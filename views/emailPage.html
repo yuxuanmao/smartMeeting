@@ -1,7 +1,7 @@
 <!--Email Center-->
-<div id="emailCenter" class="emailCenterPage" align="center" ng-show="emailcentershow">
+<div id="emailCenter" class="emailCenterPage" align="center" ng-show="emailcentershow" style="padding-top: 40px;">
     <img id="lucyImg" src="./resources/chatlogo.png" alt="chatlogo">
-    <div style="display: flex; background-color: white;">
+    <div style="display: flex; background-color: rgba(255, 255, 255, 0.9);">
 
         <div class="navbar" style="height: 605px; width: 20%; position: relative;">
             <ul>
@@ -10,33 +10,29 @@
                 <li id="Chats" onclick="location.href='#!/selectRoom'">Chats</li>
                 <li id="Email" onclick="location.href='#!/emailCenter'">Email</li>
             </ul>
-                <button id="logoutbt" type="submit">Log Out</button>
+                <button id="logoutbt" type="submit" onclick="location.href='#!/'">Log Out</button>
         </div>
 
         <div class="emails" align="center" style="width: 100%; margin: 0; padding-left: 60px; display: block; padding-right: 60px; padding-top: 40px; min-height: 100%;">
 
             <div class="sendOptions" id="sendOptions" style="display:block" ng-show="optionsShow">
-                <h2>What would you like to send?</h2>
+                <h2 color="black">What would you like to send?</h2>
                 <button id="noticebutton" ng-click="sendNotification()">Meeting Notification</button>
-                <br>
-                <button id="followupbutton" ng-click="sendFollowup()">Meeting Followup</button>
-                <br>
-                <button id="reportbutton" ng-click="sendReports()">Reports</button>
             </div>
 
             <div class="mailingSection" id="futureSection" style="display:block" ng-show="futureShow">
                 <div id="upcomingMeetings">
                     <h3 align="left">Coming up..</h3>
-                    <button id="backbutton" type="button" ng-click="backToggle()">Back</button>
+                    <button id="backbutton" type="button" ng-click="backToggle()" style="margin-bottom: 15px;">Back</button>
                 </div>
 
 
                 <div id="notificationMail">
                     <form action="javascript:alert('submitted');" name="receiver" id="receiver" method="post">
                         To:
-                        <input name="pmSubject" id="pmSubject" type="text" maxlength="40" style="width:40%" placeholder="Email Address" ng-model="other.email"/>
+                        <input name="pmSubject" id="pmSubject" type="text" maxlength="40" style="width:40%; height:30px; border-radius:3px; border: 3px solid #AEB6BF; margin-bottom: 10px;" placeholder="Email Address" ng-model="other.email"/>
                     </form>
-                    <textarea name="emailContent" id="emailContent" method="post" style="resize:none; width:40%" rows=20 ng-model="user.notification">Hi! this is a meeting reminder</textarea>
+                    <textarea name="emailContent" id="emailContent" method="post" style="resize:none; width:40%; border-radius:3px; border: 3px solid #AEB6BF;" rows=20 ng-model="user.notification">Hi! this is a meeting reminder</textarea>
                     <br>
                     <button id="sendbutton" type="button" class="btn btn-primary btn-lg btn-blockSmall" ng-click="sendPost()">Send</button>
                 </div>
