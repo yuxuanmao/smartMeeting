@@ -1,4 +1,4 @@
-S# Smart-Meeting
+# Smart-Meeting
 
 
 ### Introduction: Web app SmartMeeting
@@ -92,7 +92,7 @@ Home Page
 Chat Room
 [![html light](https://github.com/kokonattuDream/Smart-Meeting/blob/master/Pictures/ChatRoom.png)](https://github.com/kokonattuDream/Smart-Meeting/blob/master/Pictures/ChatRoom.png)
 
-=================================================================================================================================================================
+### More Infos
 
 Test credential
 
