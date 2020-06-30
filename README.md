@@ -81,16 +81,16 @@ Our project is a web-chat application called Smart Meeting. The two highlighted 
 
 
 Title Page
-[![html light](https://github.com/yuxuanmao/Smart-Meeting/blob/master/pictures/TitlePage.png)](https://github.com/kokonattuDream/Smart-Meeting/blob/master/pictures/TitlePage.png)
+[![html light](https://github.com/yuxuanmao/smartMeeting/blob/master/pictures/TitlePage.png)](https://github.com/kokonattuDream/smartMeeting/blob/master/pictures/TitlePage.png)
 
 Sign Up Page
-[![html light](https://github.com/yuxuanmao/Smart-Meeting/blob/master/pictures/SignUp.png)](https://github.com/kokonattuDream/Smart-Meeting/blob/master/pictures/SignUp.png)
+[![html light](https://github.com/yuxuanmao/smartMeeting/blob/master/pictures/SignUp.png)](https://github.com/kokonattuDream/smartMeeting/blob/master/pictures/SignUp.png)
 
 Home Page
-[![html light](https://github.com/yuxuanmao/Smart-Meeting/blob/master/pictures/HomePage.png)](https://github.com/kokonattuDream/Smart-Meeting/blob/master/pictures/HomePage.png)
+[![html light](https://github.com/yuxuanmao/smartMeeting/blob/master/pictures/HomePage.png)](https://github.com/kokonattuDream/smartMeeting/blob/master/pictures/HomePage.png)
 
 Chat Room
-[![html light](https://github.com/yuxuanmao/Smart-Meeting/blob/master/pictures/ChatRoom.png)](https://github.com/kokonattuDream/Smart-Meeting/blob/master/pictures/ChatRoom.png)
+[![html light](https://github.com/yuxuanmao/smartMeeting/blob/master/pictures/ChatRoom.png)](https://github.com/kokonattuDream/smartMeeting/blob/master/pictures/ChatRoom.png)
 
 ### More Infos
 
